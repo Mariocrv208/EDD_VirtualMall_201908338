@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+
 	"./Listas"
 
 	"github.com/gorilla/mux"
@@ -53,6 +54,7 @@ func agregar(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &mandar)
 	json.NewEncoder(w).Encode(mandar)
+
 }
 
 func Mostrar(w http.ResponseWriter, r *http.Request) {
@@ -69,23 +71,25 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(mandar)
-
+	Linealizando()
 }
 
 //CrearVector
-func longector(x int, y int) int {
+func longector() int {
+	var x int
+	var y int
 	x = len(mandar.Datos)
 	y = len(mandar.Datos[0].Departamentos)
 	longit = 5 * x * y
 	return longit
 }
 
-//vector
-var veclin = make([]*Listas.ListaEnlazada, longit)
-
-func InsertarNodo() {
+//Linealizando vector
+func Linealizando() {
+	//vector
+	var veclin = make([]*Listas.ListaEnlazada, longector())
 	var primero, segundo, tercero int
-	var nodomandar *Listas.Nodo
+	fmt.Println("Entro a linealizar")
 	for i := 0; i < len(mandar.Datos); i++ {
 		var h int
 		//Encotrando posicion vector
@@ -95,21 +99,38 @@ func InsertarNodo() {
 			h = i - 1
 		}
 		primero = i + h
-
+		fmt.Println("Sumo primero")
 		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
 			//Encotrando posicion vector
 			segundo = (primero * len(mandar.Datos)) + j
+
 			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
-				//Crear Nodo
-				nodomandar = Listas.NuevoNodo(mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion, mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion)
-				//Posicionar Nodo
 				var calif int
 				calif = mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion
 				tercero = segundo*5 + calif
-				println(tercero)
+				//Crear Nodo
+				nodomandar := Listas.Nodo{mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion, mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion, nil, nil}
+				fmt.Println("Creo el nodo")
+				//Posicionar Nodo
+				fmt.Println(nodomandar)
+				fmt.Println("calculo tercero")
+				fmt.Println(tercero)
+				for m := 0; m < len(veclin); m++ {
+					fmt.Println(veclin[m])
+				}
+				fmt.Println(veclin[tercero])
 				//Agregar Nodo a vector
-				veclin[tercero] = Listas.InsertarNodo(nodomandar)
-				println(veclin[tercero])
+				if veclin[tercero] == nil {
+					fmt.Println("creo lista e inserto")
+					nuevalista := Listas.CrearLista()
+					nuevalista.InsertarNodo(&nodomandar)
+					veclin[tercero] = nuevalista
+				} else {
+					fmt.Println("inserto en lista existente")
+					veclin[tercero].InsertarNodo(&nodomandar)
+				}
+
+				fmt.Println(veclin[tercero])
 			}
 		}
 	}
