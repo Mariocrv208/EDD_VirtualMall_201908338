@@ -1,14 +1,7 @@
 package Vector
 
-func CrearVector() {
-	longit = len()
-}
+var s [longit]ListaEnlazada
 
-type Vector struct {
-	Nombre       string
-	Descripcion  string
-	contacto     string
-	calificacion int
-	Sig          *Nodo
-	Ant          *Nodo
+func CrearVector() {
+
 }

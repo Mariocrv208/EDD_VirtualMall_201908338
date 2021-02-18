@@ -1,13 +1,6 @@
 package Lista
 
-import (
-	"fmt"
-)
-
 //variables
-var colum int
-var fila int
-var longit int
 
 type Nodo struct {
 	Nombre       string
@@ -27,28 +20,13 @@ func CrearLista() *ListaEnlazada {
 	return &ListaEnlazada{nil, nil}
 }
 
-func CrearVector() {
-	var recivlong int
-	recivlong = 5
-	fmt.Print(recivlong)
-}
-
-func LongitudEncontrar() {
-
-	longit = 5 * len(Raiz.Datos)
-	s := make([]string, longit)
-}
-
-func (i *ListaEnlazada) InsertarNodo(n *Nodo) {
-	if i.cabeza == nil {
-		i.cabeza = n
-		i.cola = n
+func (inser *ListaEnlazada) InsertarNodo(n *Nodo) {
+	if inser.cabeza == nil {
+		inser.cabeza = n
+		inser.cola = n
 	} else {
-		i.cola.Sig = n
+		inser.cola.Sig = n
+		n.Ant = inser.cola
+		inser.cola = n
 	}
-
-	nuevo := i.cabeza
-	i.cabeza = n
-	i.cabeza.Sig = nuevo
-	/*i.cabeza.Sig.Ant = nuevo*/
 }

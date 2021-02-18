@@ -33,13 +33,14 @@ type Tiendas struct {
 }
 
 //funciones
-
+//Server
 func inicial(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Si jala we uwu")
 }
 
 //variables
 var mandar Raiz
+var longit int
 
 func agregar(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -77,8 +78,15 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//main
+//CrearVector
+func longector(x int, y int) int {
+	x = len(mandar.Datos)
+	y = len(mandar.Datos[0].Departamentos)
+	longit = 5 * x * y
+	return longit
+}
 
+//main
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", inicial).Methods("GET")
