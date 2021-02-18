@@ -7,6 +7,9 @@ import (
 	"log"
 	"net/http"
 
+	"./Lista"
+	"./Vector"
+
 	"github.com/gorilla/mux"
 )
 
@@ -29,7 +32,7 @@ type Tiendas struct {
 	Nombre       string `json:Nombre`
 	Descripcion  string `json:Descripcion`
 	Contacto     string `json:Contacto`
-	Calificacion string `json:Calificacion`
+	Calificacion int    `json:Calificacion`
 }
 
 //funciones
@@ -68,13 +71,8 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(mandar)
 
-	for j := 0; j < len(mandar.Datos[0].Departamentos); j++ {
-		for i := 0; i < len(mandar.Datos); i++ {
-			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
-
-			}
-		}
-	}
+	Vector.InsertarNodo()
+	Lista.InsertarNodo()
 
 }
 

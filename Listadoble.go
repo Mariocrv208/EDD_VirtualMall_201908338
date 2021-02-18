@@ -16,6 +16,10 @@ type ListaEnlazada struct {
 	cola   *Nodo
 }
 
+func NuevoNodo(nombre, descripcion, contacto string, calificacion int) *Nodo {
+	return &Node{Nombre: nombre, Descripcion: descripcion, Contacto: contacto, Calificacion: calificacion}
+}
+
 func CrearLista() *ListaEnlazada {
 	return &ListaEnlazada{nil, nil}
 }
