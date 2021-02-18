@@ -54,7 +54,7 @@ func agregar(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &mandar)
 	json.NewEncoder(w).Encode(mandar)
-
+	Linealizando()
 }
 
 func Mostrar(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +71,7 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(mandar)
-	Linealizando()
+
 }
 
 //CrearVector
@@ -103,22 +103,17 @@ func Linealizando() {
 		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
 			//Encotrando posicion vector
 			segundo = (primero * len(mandar.Datos)) + j
-
+			fmt.Println("Sumo segundo")
 			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
 				var calif int
 				calif = mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion
 				tercero = segundo*5 + calif
+				fmt.Println("calculo tercero")
+				fmt.Println(tercero)
 				//Crear Nodo
 				nodomandar := Listas.Nodo{mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion, mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion, nil, nil}
 				fmt.Println("Creo el nodo")
-				//Posicionar Nodo
 				fmt.Println(nodomandar)
-				fmt.Println("calculo tercero")
-				fmt.Println(tercero)
-				for m := 0; m < len(veclin); m++ {
-					fmt.Println(veclin[m])
-				}
-				fmt.Println(veclin[tercero])
 				//Agregar Nodo a vector
 				if veclin[tercero] == nil {
 					fmt.Println("creo lista e inserto")
@@ -129,18 +124,36 @@ func Linealizando() {
 					fmt.Println("inserto en lista existente")
 					veclin[tercero].InsertarNodo(&nodomandar)
 				}
-
-				fmt.Println(veclin[tercero])
 			}
 		}
 	}
+	for m := 0; m < len(veclin); m++ {
+		fmt.Println(veclin[m])
+	}
+}
+
+func BuscarTienda(w http.ResponseWriter, r *http.Request) {
+	for i := 0; i < len(mandar.Datos); i++ {
+		fmt.Println("Indice: " + mandar.Datos[i].Indice)
+		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
+			fmt.Println("Nombre: " + mandar.Datos[i].Departamentos[j].Nombre)
+			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
+				fmt.Println("Nombre: " + mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre)
+				fmt.Println("Calificacion: " + strconv.Itoa(mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion))
+				fmt.Println("Contacto: " + mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto)
+				fmt.Println("Descripcion: " + mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion)
+			}
+		}
+	}
+	json.NewEncoder(w).Encode(mandar)
+
 }
 
 //main
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", inicial).Methods("GET")
-	router.HandleFunc("/agregar", agregar).Methods("POST")
+	router.HandleFunc("/cargartienda", agregar).Methods("POST")
 	router.HandleFunc("/Mostrar", Mostrar).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3000", router))
 
