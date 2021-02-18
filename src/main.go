@@ -15,7 +15,6 @@ import (
 //variables
 var mandar Raiz
 var longit int
-var veclin = make([]Listas.ListaEnlazada, longit)
 
 //Struct Json
 type Raiz struct {
@@ -73,8 +72,20 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 
 }
 
+//CrearVector
+func longector(x int, y int) int {
+	x = len(mandar.Datos)
+	y = len(mandar.Datos[0].Departamentos)
+	longit = 5 * x * y
+	return longit
+}
+
+//vector
+var veclin = make([]*Listas.ListaEnlazada, longit)
+
 func InsertarNodo() {
 	var primero, segundo, tercero int
+	var nodomandar *Listas.Nodo
 	for i := 0; i < len(mandar.Datos); i++ {
 		var h int
 		//Encotrando posicion vector
@@ -90,29 +101,18 @@ func InsertarNodo() {
 			segundo = (primero * len(mandar.Datos)) + j
 			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
 				//Crear Nodo
-				//Lista.NuevoNodo{Nombre: mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, Descripcion: mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion,
-				//Contacto: mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, Calificacion: mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion}
-
+				nodomandar = Listas.NuevoNodo(mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion, mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion)
 				//Posicionar Nodo
 				var calif int
 				calif = mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion
 				tercero = segundo*5 + calif
 				println(tercero)
-				/*veclin = append(veclin[tercero], Lista.InsertarNodo)
-				for m := 0; m < len(veclin); m++ {
-					println(veclin[m])
-				}*/
+				//Agregar Nodo a vector
+				veclin[tercero] = Listas.InsertarNodo(nodomandar)
+				println(veclin[tercero])
 			}
 		}
 	}
-}
-
-//CrearVector
-func longector(x int, y int) int {
-	x = len(mandar.Datos)
-	y = len(mandar.Datos[0].Departamentos)
-	longit = 5 * x * y
-	return longit
 }
 
 //main
