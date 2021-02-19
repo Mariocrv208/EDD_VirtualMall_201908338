@@ -1,5 +1,10 @@
 package Listas
 
+import (
+	"fmt"
+	"strconv"
+)
+
 type Nodo struct {
 	Nombre       string
 	Descripcion  string
@@ -12,10 +17,6 @@ type Nodo struct {
 type ListaEnlazada struct {
 	cabeza *Nodo
 	cola   *Nodo
-}
-
-func NuevoNodo(nombre string, descripcion string, contacto string, calificacion int) *Nodo {
-	return &Nodo{Nombre: nombre, Descripcion: descripcion, Contacto: contacto, Calificacion: calificacion}
 }
 
 func CrearLista() *ListaEnlazada {
@@ -31,4 +32,39 @@ func (inser *ListaEnlazada) InsertarNodo(n *Nodo) {
 		n.Ant = inser.cola
 		inser.cola = n
 	}
+}
+
+func (i *Nodo) To_string() string {
+	return "Nombre: " + i.Nombre + "Descripcion: " + i.Descripcion + "Contacto: " + i.Contacto + "Calificacion: " + strconv.Itoa(i.Calificacion)
+}
+
+//para imprimir
+func (i *ListaEnlazada) To_string() string {
+	var resultante string
+	aux := i.cabeza
+	for aux != nil {
+		resultante += aux.To_string()
+		aux = aux.Sig
+	}
+	return resultante
+}
+
+func (i *ListaEnlazada) Imprimir() {
+	fmt.Println("Lista es: ")
+	fmt.Println(i.To_string())
+}
+
+//para buscar e imprimir un nodo
+func (i *ListaEnlazada) PasarNodo(BuscarNombre string) *Nodo {
+	fmt.Println("entro: ")
+	fmt.Print(BuscarNombre)
+	aux := i.cabeza
+	for aux != nil {
+		if aux.Nombre == BuscarNombre {
+			fmt.Print(aux.Nombre)
+			break
+		}
+		aux = aux.Sig
+	}
+	return aux
 }

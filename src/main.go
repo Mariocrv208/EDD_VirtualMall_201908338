@@ -15,7 +15,17 @@ import (
 
 //variables
 var mandar Raiz
+var resultadoBusca Tiendas
 var longit int
+var buscar mandarBuscar
+var veclineado []*Listas.ListaEnlazada
+
+//Struct Buscar
+type mandarBuscar struct {
+	Departamento string `json:Departamento`
+	Nombre       string `json:Nombre`
+	Calificacion int    `json:Calificacion`
+}
 
 //Struct Json
 type Raiz struct {
@@ -58,6 +68,7 @@ func agregar(w http.ResponseWriter, r *http.Request) {
 }
 
 func Mostrar(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Carga Jason")
 	for i := 0; i < len(mandar.Datos); i++ {
 		fmt.Println("Indice: " + mandar.Datos[i].Indice)
 		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
@@ -70,8 +81,68 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	json.NewEncoder(w).Encode(mandar)
 
+	fmt.Println("BUSQUEDA ESPECIFICA")
+	fmt.Println("Departamento: " + buscar.Departamento)
+	fmt.Println("Nombre: " + buscar.Nombre)
+	fmt.Println("Calificacion: " + strconv.Itoa(buscar.Calificacion))
+	json.NewEncoder(w).Encode(mandar)
+	json.NewEncoder(w).Encode(buscar)
+
+}
+
+func BuscarTienda(w http.ResponseWriter, r *http.Request) {
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(w, "No inserto we :c")
+	}
+	fmt.Fprintf(w, "Inserto :3")
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.Unmarshal(reqBody, &buscar)
+	resultadoBusca = BuscandoTienda()
+	json.NewEncoder(w).Encode(resultadoBusca)
+}
+
+//Funciones utiles
+//buscar tienda
+func BuscandoTienda() Tiendas {
+	var primero, segundo, tercero int
+	var secundaria string
+	secundaria = buscar.Nombre
+	for j := 0; j < len(mandar.Datos[0].Departamentos); j++ {
+		if mandar.Datos[0].Departamentos[j].Nombre == buscar.Departamento {
+			var h int
+			//Encotrando posicion vector
+			if j == 0 {
+				h = 0
+			} else {
+				h = j - 1
+			}
+			primero = j + h
+			fmt.Println("Sumo primero" + strconv.Itoa(primero))
+			break
+		}
+	}
+	for i := 0; i < len(buscar.Nombre); i++ {
+		for j := 0; j < len(mandar.Datos); j++ {
+			if string(secundaria[0]) == mandar.Datos[j].Indice {
+				segundo = (primero * len(mandar.Datos)) + j
+				fmt.Println("Sumo segundo" + strconv.Itoa(segundo))
+				break
+			}
+		}
+	}
+	var calif int
+	var buscarNombre string
+	calif = buscar.Calificacion
+	tercero = segundo*5 + calif
+	fmt.Println("Sumo tercero" + strconv.Itoa(tercero))
+	buscarNombre = buscar.Nombre
+	var nodorecibir *Listas.Nodo = veclineado[tercero].PasarNodo(buscarNombre)
+	fmt.Println(nodorecibir.Nombre)
+	var mandarTienda Tiendas = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
+	return mandarTienda
 }
 
 //CrearVector
@@ -89,7 +160,6 @@ func Linealizando() {
 	//vector
 	var veclin = make([]*Listas.ListaEnlazada, longector())
 	var primero, segundo, tercero int
-	fmt.Println("Entro a linealizar")
 	for i := 0; i < len(mandar.Datos); i++ {
 		var h int
 		//Encotrando posicion vector
@@ -99,54 +169,30 @@ func Linealizando() {
 			h = i - 1
 		}
 		primero = i + h
-		fmt.Println("Sumo primero")
+		fmt.Println("Sumo primero" + strconv.Itoa(primero))
 		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
 			//Encotrando posicion vector
 			segundo = (primero * len(mandar.Datos)) + j
-			fmt.Println("Sumo segundo")
+			fmt.Println("Sumo segundo" + strconv.Itoa(segundo))
 			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
 				var calif int
 				calif = mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion
 				tercero = segundo*5 + calif
-				fmt.Println("calculo tercero")
-				fmt.Println(tercero)
+				fmt.Println("calculo tercero" + strconv.Itoa(tercero))
 				//Crear Nodo
 				nodomandar := Listas.Nodo{mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion, mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion, nil, nil}
-				fmt.Println("Creo el nodo")
-				fmt.Println(nodomandar)
 				//Agregar Nodo a vector
 				if veclin[tercero] == nil {
-					fmt.Println("creo lista e inserto")
 					nuevalista := Listas.CrearLista()
 					nuevalista.InsertarNodo(&nodomandar)
 					veclin[tercero] = nuevalista
 				} else {
-					fmt.Println("inserto en lista existente")
 					veclin[tercero].InsertarNodo(&nodomandar)
 				}
 			}
 		}
 	}
-	for m := 0; m < len(veclin); m++ {
-		fmt.Println(veclin[m])
-	}
-}
-
-func BuscarTienda(w http.ResponseWriter, r *http.Request) {
-	for i := 0; i < len(mandar.Datos); i++ {
-		fmt.Println("Indice: " + mandar.Datos[i].Indice)
-		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
-			fmt.Println("Nombre: " + mandar.Datos[i].Departamentos[j].Nombre)
-			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
-				fmt.Println("Nombre: " + mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre)
-				fmt.Println("Calificacion: " + strconv.Itoa(mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion))
-				fmt.Println("Contacto: " + mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto)
-				fmt.Println("Descripcion: " + mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion)
-			}
-		}
-	}
-	json.NewEncoder(w).Encode(mandar)
-
+	veclineado = veclin
 }
 
 //main
@@ -154,7 +200,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", inicial).Methods("GET")
 	router.HandleFunc("/cargartienda", agregar).Methods("POST")
+	router.HandleFunc("/TiendaEspecifica", BuscarTienda).Methods("POST")
 	router.HandleFunc("/Mostrar", Mostrar).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3000", router))
-
 }
