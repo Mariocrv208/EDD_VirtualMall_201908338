@@ -16,6 +16,7 @@ import (
 //variables
 var mandar Raiz
 var resultadoBusca Tiendas
+var resultadoID Departamentos
 var longit int
 var buscar mandarBuscar
 var veclineado []*Listas.ListaEnlazada
@@ -81,13 +82,23 @@ func Mostrar(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-
 	fmt.Println("BUSQUEDA ESPECIFICA")
 	fmt.Println("Departamento: " + buscar.Departamento)
 	fmt.Println("Nombre: " + buscar.Nombre)
 	fmt.Println("Calificacion: " + strconv.Itoa(buscar.Calificacion))
 	json.NewEncoder(w).Encode(mandar)
 	json.NewEncoder(w).Encode(buscar)
+}
+
+func buscarID(w http.ResponseWriter, r *http.Request) {
+	cargar := mux.Vars(r)
+	b, _ := strconv.Atoi(cargar["id"])
+	var mensaje string
+	mensaje = "No se encontraron nodos"
+	numMandar := b
+	w.Header().Set("Content-type", "application/json")
+	w.WriteHeader(http.StatusFound)
+	json.NewEncoder(w).Encode(buscandoID(numMandar))
 
 }
 
@@ -96,7 +107,6 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "No inserto we :c")
 	}
-	fmt.Fprintf(w, "Inserto :3")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &buscar)
@@ -105,6 +115,28 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 }
 
 //Funciones utiles
+//BuscarID
+var NombreID string = ""
+
+func buscandoID(numero int) *Departamentos {
+	var recibirlong int = veclineado[numero].PasarNodoID()
+	var mandarTienda Tiendas
+	var MandarDepartamento Departamentos
+	var multiTiendas []Tiendas
+	for i := 0; i < recibirlong; i++ {
+		var nodorecibir *Listas.Nodo = veclineado[numero].RecorrerID(NombreID)
+		NombreID = nodorecibir.Nombre
+		fmt.Println(NombreID)
+		mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
+		multiTiendas = append(multiTiendas, mandarTienda)
+	}
+	/*if veclineado[numero] == nil {
+		return nil
+	}*/
+	MandarDepartamento = Departamentos{Tiendas: multiTiendas}
+	return &MandarDepartamento
+}
+
 //buscar tienda
 func BuscandoTienda() Tiendas {
 	var primero, segundo, tercero int
@@ -120,7 +152,6 @@ func BuscandoTienda() Tiendas {
 				h = j - 1
 			}
 			primero = j + h
-			fmt.Println("Sumo primero" + strconv.Itoa(primero))
 			break
 		}
 	}
@@ -128,7 +159,6 @@ func BuscandoTienda() Tiendas {
 		for j := 0; j < len(mandar.Datos); j++ {
 			if string(secundaria[0]) == mandar.Datos[j].Indice {
 				segundo = (primero * len(mandar.Datos)) + j
-				fmt.Println("Sumo segundo" + strconv.Itoa(segundo))
 				break
 			}
 		}
@@ -137,10 +167,8 @@ func BuscandoTienda() Tiendas {
 	var buscarNombre string
 	calif = buscar.Calificacion
 	tercero = segundo*5 + calif
-	fmt.Println("Sumo tercero" + strconv.Itoa(tercero))
 	buscarNombre = buscar.Nombre
 	var nodorecibir *Listas.Nodo = veclineado[tercero].PasarNodo(buscarNombre)
-	fmt.Println(nodorecibir.Nombre)
 	var mandarTienda Tiendas = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
 	return mandarTienda
 }
@@ -202,5 +230,6 @@ func main() {
 	router.HandleFunc("/cargartienda", agregar).Methods("POST")
 	router.HandleFunc("/TiendaEspecifica", BuscarTienda).Methods("POST")
 	router.HandleFunc("/Mostrar", Mostrar).Methods("GET")
+	router.HandleFunc("/id/{id}", buscarID).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }

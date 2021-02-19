@@ -68,3 +68,31 @@ func (i *ListaEnlazada) PasarNodo(BuscarNombre string) *Nodo {
 	}
 	return aux
 }
+
+//para buscarID
+var contador int = 0
+
+func (i *ListaEnlazada) PasarNodoID() int {
+	aux := i.cabeza
+	for aux != nil {
+		aux = aux.Sig
+		contador++
+	}
+	return contador
+}
+
+func (i *ListaEnlazada) RecorrerID(ultNombre string) *Nodo {
+	aux := i.cabeza
+	if ultNombre == "" {
+		ultNombre = i.cabeza.Nombre
+		return aux
+	}
+	for aux != nil {
+		if aux.Nombre == ultNombre {
+			aux = aux.Sig
+			ultNombre = aux.Nombre
+			break
+		}
+	}
+	return aux
+}
