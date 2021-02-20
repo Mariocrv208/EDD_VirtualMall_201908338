@@ -84,6 +84,7 @@ func exportarJson(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(mandarJson)
 }
 
+//Funciones utiles
 //BuscarID
 func buscarID(w http.ResponseWriter, r *http.Request) {
 	cargar := mux.Vars(r)
@@ -100,6 +101,7 @@ func buscarID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//eliminar tienda
 func EliminarTienda(w http.ResponseWriter, r *http.Request) {
 	var mens string = ""
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -118,6 +120,7 @@ func EliminarTienda(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//buscar especifico
 func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -130,8 +133,6 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resultadoBusca)
 }
 
-//Funciones utiles
-
 //Exportar
 func exportarVector() *Raiz {
 	fmt.Println("EntroGuardar")
@@ -142,56 +143,43 @@ func exportarVector() *Raiz {
 	var multiDepartamnetos []Departamentos
 	var multiDatos []Datos
 	var mandarRaiz Raiz
-	var n int = 4
-	var mandarindice string
-	fmt.Println(len(veclineado))
-	for i := 0; i < len(veclineado); i++ {
-		fmt.Println(i)
+	var n int = 9
+	var n2 int = 4
+	var indicebuscando int = 1
+	var buscadeparta int = 1
+	fmt.Println(len(veclin))
+	for i := 0; i < len(veclin); i++ {
+		//para tiendas
 		var recibirlong int = 0
-		if veclineado[i] != nil {
-			recibirlong = veclineado[i].PasarNodoID()
+		if veclin[i] != nil {
+			recibirlong = veclin[i].PasarNodoID()
+			fmt.Println("longitud lista en nodo")
 			fmt.Println(recibirlong)
 		}
 		if recibirlong != 0 {
+			var buscanombre string = ""
 			for j := 0; j < recibirlong; j++ {
-				var buscanombre string = ""
-				var nodorecibir *Listas.Nodo = veclineado[j].RecorrerID(buscanombre)
-				NombreID = nodorecibir.Nombre
-				fmt.Println(NombreID)
+				var nodorecibir *Listas.Nodo = veclin[i].RecorrerID(buscanombre)
+				buscanombre = nodorecibir.Nombre
+				fmt.Println(nodorecibir.Nombre)
 				mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
 				multiTiendas = append(multiTiendas, mandarTienda)
 				fmt.Println("CargoTiendas")
 			}
-			var buscaindice int = 1
-			var buscadepa int = 0
-			var indicetotal int = len(mandar.Datos)
-			var paso int
-			paso = (indicetotal * 5 * buscaindice) - 1
-			fmt.Println(paso)
+			//calculos para depas e indices
 			if i == n {
-				n = n + 5
-				fmt.Println(n)
-				var aceptando bool = false
-				if i == paso {
-					var mandardepar string = mandar.Datos[0].Departamentos[buscadepa].Nombre
-					mandarindice = mandar.Datos[(buscaindice - 1)].Indice
-					MandarDepartamento = Departamentos{Nombre: mandardepar, Tiendas: multiTiendas}
-					multiDepartamnetos = append(multiDepartamnetos, MandarDepartamento)
-					buscaindice = buscaindice + 1
-					buscadepa = buscadepa + 1
-					aceptando = true
-					fmt.Println("Inserto departamento" + mandardepar)
-				}
-				if aceptando == true {
-					mandarDatos = Datos{Indice: mandarindice, Departamentos: multiDepartamnetos}
-					multiDatos = append(multiDatos, mandarDatos)
-					aceptando = false
-					buscaindice = 1
-					fmt.Println("Inserto Indice" + mandarindice)
-				}
+				n = n + 10
+				MandarDepartamento = Departamentos{Nombre: mandar.Datos[0].Departamentos[buscadeparta-1].Nombre, Tiendas: mandar.Datos[0].Departamentos[buscadeparta-1].Tiendas}
+				multiDepartamnetos = append(multiDepartamnetos, MandarDepartamento)
+				buscadeparta = buscadeparta + 1
+			}
+			if i == n2 {
+				n2 = n2 + 5
+				mandarDatos = Datos{Indice: mandar.Datos[indicebuscando-1].Indice, Departamentos: mandar.Datos[indicebuscando-1].Departamentos}
+				multiDatos = append(multiDatos, mandarDatos)
+				buscadeparta = buscadeparta + 1
 			}
 		}
-
 	}
 	mandarRaiz = Raiz{Datos: multiDatos}
 	return &mandarRaiz
