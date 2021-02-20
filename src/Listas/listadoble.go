@@ -70,9 +70,9 @@ func (i *ListaEnlazada) PasarNodo(BuscarNombre string) *Nodo {
 }
 
 //para buscarID
-var contador int = 0
 
 func (i *ListaEnlazada) PasarNodoID() int {
+	var contador int = 0
 	aux := i.cabeza
 	for aux != nil {
 		aux = aux.Sig
@@ -91,7 +91,7 @@ func (i *ListaEnlazada) RecorrerID(ultNombre string) *Nodo {
 		if aux.Nombre == ultNombre {
 			aux = aux.Sig
 			ultNombre = aux.Nombre
-			break
+			return aux
 		}
 	}
 	return aux

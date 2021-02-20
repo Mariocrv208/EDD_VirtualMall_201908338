@@ -93,7 +93,7 @@ func buscarID(w http.ResponseWriter, r *http.Request) {
 	numMandar := b
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(http.StatusFound)
-	if veclineado[numMandar] == nil {
+	if veclin[numMandar] == nil {
 		json.NewEncoder(w).Encode(mensaje)
 	} else {
 		json.NewEncoder(w).Encode(buscandoID(numMandar))
@@ -134,6 +134,7 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 
 //Exportar
 func exportarVector() *Raiz {
+	fmt.Println("EntroGuardar")
 	var mandarTienda Tiendas
 	var MandarDepartamento Departamentos
 	var mandarDatos Datos
@@ -142,39 +143,52 @@ func exportarVector() *Raiz {
 	var multiDatos []Datos
 	var mandarRaiz Raiz
 	var n int = 4
-	var buscaindice int = 1
-	var buscadepa int = 0
 	var mandarindice string
+	fmt.Println(len(veclineado))
 	for i := 0; i < len(veclineado); i++ {
-		fmt.Println(len(veclineado))
-		var recibirlong int = veclineado[i].PasarNodoID()
-		for j := 0; j < recibirlong; j++ {
-			var nodorecibir *Listas.Nodo = veclineado[j].RecorrerID(NombreID)
-			NombreID = nodorecibir.Nombre
-			fmt.Println(NombreID)
-			mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
-			multiTiendas = append(multiTiendas, mandarTienda)
+		fmt.Println(i)
+		var recibirlong int = 0
+		if veclineado[i] != nil {
+			recibirlong = veclineado[i].PasarNodoID()
+			fmt.Println(recibirlong)
 		}
-		var indicetotal int = len(mandar.Datos)
-		var paso int = 0
-		paso = (indicetotal * 5 * buscaindice) - 1
-		if i == n {
-			n = n + 5
-			var aceptando bool = false
-			if i == paso {
-				var mandardepar string = mandar.Datos[0].Departamentos[buscadepa].Nombre
-				mandarindice = mandar.Datos[(buscaindice - 1)].Indice
-				MandarDepartamento = Departamentos{Nombre: mandardepar, Tiendas: multiTiendas}
-				multiDepartamnetos = append(multiDepartamnetos, MandarDepartamento)
-				buscaindice = buscaindice + 1
-				buscadepa = buscadepa + 1
-				aceptando = true
+		if recibirlong != 0 {
+			for j := 0; j < recibirlong; j++ {
+				var buscanombre string = ""
+				var nodorecibir *Listas.Nodo = veclineado[j].RecorrerID(buscanombre)
+				NombreID = nodorecibir.Nombre
+				fmt.Println(NombreID)
+				mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
+				multiTiendas = append(multiTiendas, mandarTienda)
+				fmt.Println("CargoTiendas")
 			}
-			if aceptando == true {
-				mandarDatos = Datos{Indice: mandarindice, Departamentos: multiDepartamnetos}
-				multiDatos = append(multiDatos, mandarDatos)
-				aceptando = false
-				buscaindice = 1
+			var buscaindice int = 1
+			var buscadepa int = 0
+			var indicetotal int = len(mandar.Datos)
+			var paso int
+			paso = (indicetotal * 5 * buscaindice) - 1
+			fmt.Println(paso)
+			if i == n {
+				n = n + 5
+				fmt.Println(n)
+				var aceptando bool = false
+				if i == paso {
+					var mandardepar string = mandar.Datos[0].Departamentos[buscadepa].Nombre
+					mandarindice = mandar.Datos[(buscaindice - 1)].Indice
+					MandarDepartamento = Departamentos{Nombre: mandardepar, Tiendas: multiTiendas}
+					multiDepartamnetos = append(multiDepartamnetos, MandarDepartamento)
+					buscaindice = buscaindice + 1
+					buscadepa = buscadepa + 1
+					aceptando = true
+					fmt.Println("Inserto departamento" + mandardepar)
+				}
+				if aceptando == true {
+					mandarDatos = Datos{Indice: mandarindice, Departamentos: multiDepartamnetos}
+					multiDatos = append(multiDatos, mandarDatos)
+					aceptando = false
+					buscaindice = 1
+					fmt.Println("Inserto Indice" + mandarindice)
+				}
 			}
 		}
 
@@ -187,12 +201,13 @@ func exportarVector() *Raiz {
 var NombreID string = ""
 
 func buscandoID(numero int) *Departamentos {
-	var recibirlong int = veclineado[numero].PasarNodoID()
+	var recibirlong int = veclin[numero].PasarNodoID()
 	var mandarTienda Tiendas
 	var MandarDepartamento Departamentos
 	var multiTiendas []Tiendas
+	fmt.Println(recibirlong)
 	for i := 0; i < recibirlong; i++ {
-		var nodorecibir *Listas.Nodo = veclineado[numero].RecorrerID(NombreID)
+		var nodorecibir *Listas.Nodo = veclin[numero].RecorrerID(NombreID)
 		NombreID = nodorecibir.Nombre
 		fmt.Println(NombreID)
 		mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
@@ -205,78 +220,73 @@ func buscandoID(numero int) *Departamentos {
 
 //Eliminar Tienda
 func EliminandoTienda() string {
-	var mensajemostrar string = ""
 	var primero, segundo, tercero int
-	var secundaria string
-	secundaria = eliminando.Nombre
 	for j := 0; j < len(mandar.Datos[0].Departamentos); j++ {
 		if mandar.Datos[0].Departamentos[j].Nombre == eliminando.Categoria {
 			var h int
+			var ps int
 			//Encotrando posicion vector
 			if j == 0 {
 				h = 0
+				ps = 0
+			} else if j == 1 {
+				h = 0
+				ps = 1
 			} else {
-				h = j - 1
+				h = 1
+				ps = j + 1
 			}
-			primero = j + h
+			primero = ps - h
 			break
 		}
 	}
-	var salir bool = false
 	for i := 0; i < len(eliminando.Nombre); i++ {
 		for j := 0; j < len(mandar.Datos); j++ {
-			if string(secundaria[0]) == mandar.Datos[j].Indice {
+			if string(eliminando.Nombre[0]) == mandar.Datos[j].Indice {
 				segundo = (primero * len(mandar.Datos)) + j
-				salir = true
 				break
 			}
 		}
-		if salir == true {
-			break
-		}
 	}
-	var calif int
-	var eliminarNombre string = eliminando.Nombre
-	calif = eliminando.Calificacion
-	tercero = segundo*5 + calif
-	var nodorecibir string = veclineado[tercero].Eliminartienda(eliminarNombre)
-	mensajemostrar = nodorecibir
-	fmt.Println("El mensaje que lleva es" + mensajemostrar)
-	return mensajemostrar
+	tercero = (segundo*5 + eliminando.Calificacion) - 1
+	fmt.Println(tercero)
+	var nodorecibir string = veclin[tercero].Eliminartienda(eliminando.Nombre)
+	fmt.Println("El mensaje que lleva es " + nodorecibir)
+	return nodorecibir
 }
 
 //buscar tienda
 func BuscandoTienda() Tiendas {
 	var primero, segundo, tercero int
-	var secundaria string
-	secundaria = buscar.Nombre
 	for j := 0; j < len(mandar.Datos[0].Departamentos); j++ {
 		if mandar.Datos[0].Departamentos[j].Nombre == buscar.Departamento {
-			var h int
+			var h int = 1
+			var ps int
 			//Encotrando posicion vector
 			if j == 0 {
 				h = 0
+				ps = 0
+			} else if j == 1 {
+				h = 0
+				ps = 1
 			} else {
-				h = j - 1
+				h = 1
+				ps = j + 1
 			}
-			primero = j + h
+			primero = ps - h
 			break
 		}
 	}
 	for i := 0; i < len(buscar.Nombre); i++ {
 		for j := 0; j < len(mandar.Datos); j++ {
-			if string(secundaria[0]) == mandar.Datos[j].Indice {
+			if string(buscar.Nombre[0]) == mandar.Datos[j].Indice {
 				segundo = (primero * len(mandar.Datos)) + j
 				break
 			}
 		}
 	}
-	var calif int
-	var buscarNombre string
-	calif = buscar.Calificacion
-	tercero = segundo*5 + calif
-	buscarNombre = buscar.Nombre
-	var nodorecibir *Listas.Nodo = veclineado[tercero].PasarNodo(buscarNombre)
+	tercero = (segundo*5 + buscar.Calificacion) - 1
+	var nodorecibir *Listas.Nodo = veclin[tercero].PasarNodo(buscar.Nombre)
 	var mandarTienda Tiendas = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
 	return mandarTienda
 }
@@ -291,44 +301,70 @@ func longector() int {
 	return longit
 }
 
+func listan() {
+	for i := 0; i < len(veclin); i++ {
+		nuevalista := Listas.CrearLista()
+		veclin[i] = nuevalista
+	}
+}
+
+var veclin []*Listas.ListaEnlazada
+
 //Linealizando vector
 func Linealizando() {
 	//vector
-	var veclin = make([]*Listas.ListaEnlazada, longector())
 	var primero, segundo, tercero int
-	for i := 0; i < len(mandar.Datos); i++ {
-		var h int
+	veclin = make([]*Listas.ListaEnlazada, longector())
+	listan()
+	for i := 0; i < len(mandar.Datos[0].Departamentos); i++ { //Entra Columna
+		var h int = 1
+		var ps int
 		//Encotrando posicion vector
 		if i == 0 {
 			h = 0
+			ps = 0
+		} else if i == 1 {
+			h = 0
+			ps = 1
 		} else {
-			h = i - 1
+			h = 1
+			ps = i + 1
 		}
-		primero = i + h
-		fmt.Println("Sumo primero" + strconv.Itoa(primero))
-		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
-			//Encotrando posicion vector
+		primero = ps - h
+		for j := 0; j < len(mandar.Datos); j++ { //Entra fila
 			segundo = (primero * len(mandar.Datos)) + j
-			fmt.Println("Sumo segundo" + strconv.Itoa(segundo))
-			for k := 0; k < len(mandar.Datos[i].Departamentos[j].Tiendas); k++ {
-				var calif int
-				calif = mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion
-				tercero = segundo*5 + calif
-				fmt.Println("calculo tercero" + strconv.Itoa(tercero))
+			for k := 0; k < len(mandar.Datos[j].Departamentos[i].Tiendas); k++ {
 				//Crear Nodo
-				nodomandar := Listas.Nodo{mandar.Datos[i].Departamentos[j].Tiendas[k].Nombre, mandar.Datos[i].Departamentos[j].Tiendas[k].Descripcion, mandar.Datos[i].Departamentos[j].Tiendas[k].Contacto, mandar.Datos[i].Departamentos[j].Tiendas[k].Calificacion, nil, nil}
-				//Agregar Nodo a vector
-				if veclin[tercero] == nil {
-					nuevalista := Listas.CrearLista()
-					nuevalista.InsertarNodo(&nodomandar)
-					veclin[tercero] = nuevalista
-				} else {
+				nodomandar := Listas.Nodo{mandar.Datos[j].Departamentos[i].Tiendas[k].Nombre, mandar.Datos[j].Departamentos[i].Tiendas[k].Descripcion, mandar.Datos[j].Departamentos[i].Tiendas[k].Contacto, mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion, nil, nil}
+				fmt.Println("formo nodo")
+				if mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion == 1 {
+					tercero = segundo*5 + 0
+					fmt.Println(tercero)
 					veclin[tercero].InsertarNodo(&nodomandar)
+					fmt.Println("Insertonodo")
+				} else if mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion == 2 {
+					tercero = segundo*5 + 1
+					veclin[tercero].InsertarNodo(&nodomandar)
+					fmt.Println("Insertonodo")
+				} else if mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion == 3 {
+					tercero = segundo*5 + 2
+					veclin[tercero].InsertarNodo(&nodomandar)
+					fmt.Println("Insertonodo")
+				} else if mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion == 4 {
+					tercero = segundo*5 + 3
+					veclin[tercero].InsertarNodo(&nodomandar)
+					fmt.Println("Insertonodo")
+				} else if mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion == 5 {
+					tercero = segundo*5 + 4
+					veclin[tercero].InsertarNodo(&nodomandar)
+					fmt.Println("Insertonodo")
 				}
 			}
 		}
 	}
-	veclineado = veclin
+	/*for i := 0; i < len(veclin); i++ {
+		fmt.Println(veclin[i])
+	}*/
 }
 
 //main
