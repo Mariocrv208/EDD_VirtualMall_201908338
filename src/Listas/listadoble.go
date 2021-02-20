@@ -96,3 +96,36 @@ func (i *ListaEnlazada) RecorrerID(ultNombre string) *Nodo {
 	}
 	return aux
 }
+
+//Eliminar
+func (i *ListaEnlazada) Eliminartienda(nombrenodo string) string {
+	var mandarMensaje string = ""
+	fmt.Println("Entro a eliminar tienda")
+	aux := i.cabeza
+	if nombrenodo == i.cabeza.Nombre {
+		i.cabeza = aux.Sig
+		aux.Sig.Ant = nil
+		mandarMensaje = "Se elimino en primer nodo"
+		fmt.Println("Se elimino en primer nodo")
+		return mandarMensaje
+	}
+	for aux != nil {
+		if nombrenodo == aux.Nombre {
+			aux.Sig.Ant = aux.Ant
+			aux.Ant.Sig = aux.Sig
+			mandarMensaje = "Se elimino en nodo intermedio"
+			fmt.Println("Se elimino en nodo intermedio")
+			return mandarMensaje
+		}
+		if nombrenodo == i.cola.Nombre {
+			i.cola = aux.Ant
+			aux.Ant.Sig = nil
+			mandarMensaje = "Se elimino en nodo final"
+			fmt.Println("Se elimino en nodo final")
+			return mandarMensaje
+		}
+		aux = aux.Sig
+	}
+	fmt.Println("No encontro nodo")
+	return mandarMensaje
+}
