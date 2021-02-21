@@ -20,7 +20,6 @@ var eliminando mandarEliminar
 var resultadoID Departamentos
 var longit int
 var buscar mandarBuscar
-var veclineado []*Listas.ListaEnlazada
 
 //Struct Buscar
 type mandarBuscar struct {
@@ -82,6 +81,8 @@ func exportarJson(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusFound)
 	var mandarJson *Raiz = exportarVector()
 	json.NewEncoder(w).Encode(mandarJson)
+	file, _ := json.MarshalIndent(mandarJson, "", " ")
+	_ = ioutil.WriteFile("201908338_guardar.json", file, 0644)
 }
 
 //Funciones utiles
@@ -133,6 +134,8 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resultadoBusca)
 }
 
+//Reportes
+
 //Exportar
 func exportarVector() *Raiz {
 	fmt.Println("EntroGuardar")
@@ -143,44 +146,48 @@ func exportarVector() *Raiz {
 	var multiDepartamnetos []Departamentos
 	var multiDatos []Datos
 	var mandarRaiz Raiz
-	var n int = 9
-	var n2 int = 4
 	var indicebuscando int = 1
 	var buscadeparta int = 1
-	fmt.Println(len(veclin))
-	for i := 0; i < len(veclin); i++ {
-		//para tiendas
-		var recibirlong int = 0
-		if veclin[i] != nil {
-			recibirlong = veclin[i].PasarNodoID()
-			fmt.Println("longitud lista en nodo")
-			fmt.Println(recibirlong)
+	var paso int = len(veclin)
+	var contador int = 0
+	for i := 0; i < len(mandar.Datos); i++ {
+		for j := 0; j < len(mandar.Datos[i].Departamentos); j++ {
+			for k := contador; k < paso; k += 5 {
+				//para tiendas
+				var recibirlong int = 0
+				if veclin[k] != nil {
+					recibirlong = veclin[k].PasarNodoID()
+					fmt.Println("longitud lista en nodo")
+					fmt.Println(recibirlong)
+				}
+				if recibirlong != 0 {
+					var buscanombre string = ""
+					for j := 0; j < recibirlong; j++ {
+						var nodorecibir *Listas.Nodo = veclin[k].RecorrerID(buscanombre)
+						buscanombre = nodorecibir.Nombre
+						fmt.Println(nodorecibir.Nombre)
+						mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
+						multiTiendas = append(multiTiendas, mandarTienda)
+						fmt.Println("CargoTiendas")
+					}
+				}
+				if k == paso-1 {
+					paso = paso - 1
+					contador = contador + 1
+				}
+				if contador == 4 {
+					break
+				}
+
+			}
+			MandarDepartamento = Departamentos{Nombre: mandar.Datos[0].Departamentos[buscadeparta-1].Nombre, Tiendas: mandar.Datos[0].Departamentos[buscadeparta-1].Tiendas}
+			multiDepartamnetos = append(multiDepartamnetos, MandarDepartamento)
 		}
-		if recibirlong != 0 {
-			var buscanombre string = ""
-			for j := 0; j < recibirlong; j++ {
-				var nodorecibir *Listas.Nodo = veclin[i].RecorrerID(buscanombre)
-				buscanombre = nodorecibir.Nombre
-				fmt.Println(nodorecibir.Nombre)
-				mandarTienda = Tiendas{Nombre: nodorecibir.Nombre, Descripcion: nodorecibir.Descripcion, Contacto: nodorecibir.Contacto, Calificacion: nodorecibir.Calificacion}
-				multiTiendas = append(multiTiendas, mandarTienda)
-				fmt.Println("CargoTiendas")
-			}
-			//calculos para depas e indices
-			if i == n {
-				n = n + 10
-				MandarDepartamento = Departamentos{Nombre: mandar.Datos[0].Departamentos[buscadeparta-1].Nombre, Tiendas: mandar.Datos[0].Departamentos[buscadeparta-1].Tiendas}
-				multiDepartamnetos = append(multiDepartamnetos, MandarDepartamento)
-				buscadeparta = buscadeparta + 1
-			}
-			if i == n2 {
-				n2 = n2 + 5
-				mandarDatos = Datos{Indice: mandar.Datos[indicebuscando-1].Indice, Departamentos: mandar.Datos[indicebuscando-1].Departamentos}
-				multiDatos = append(multiDatos, mandarDatos)
-				buscadeparta = buscadeparta + 1
-			}
-		}
+		mandarDatos = Datos{Indice: mandar.Datos[indicebuscando-1].Indice, Departamentos: mandar.Datos[indicebuscando-1].Departamentos}
+		multiDatos = append(multiDatos, mandarDatos)
+		indicebuscando = indicebuscando + 1
 	}
+
 	mandarRaiz = Raiz{Datos: multiDatos}
 	return &mandarRaiz
 }
@@ -238,9 +245,17 @@ func EliminandoTienda() string {
 	}
 	tercero = (segundo*5 + eliminando.Calificacion) - 1
 	fmt.Println(tercero)
-	var nodorecibir string = veclin[tercero].Eliminartienda(eliminando.Nombre)
-	fmt.Println("El mensaje que lleva es " + nodorecibir)
-	return nodorecibir
+	var nodorecibir *Listas.ListaEnlazada = veclin[tercero].Eliminartienda(eliminando.Nombre)
+	var mensaje string
+	if nodorecibir == veclin[tercero] {
+		mensaje = "Se elimino una tienda"
+		veclin[tercero] = nil
+		veclin[tercero] = nodorecibir
+	} else {
+		mensaje = "No se elimino nada"
+	}
+	fmt.Println("El mensaje que lleva es " + mensaje)
+	return mensaje
 }
 
 //buscar tienda
@@ -288,7 +303,6 @@ func longector() int {
 	longit = 5 * x * y
 	return longit
 }
-
 func listan() {
 	for i := 0; i < len(veclin); i++ {
 		nuevalista := Listas.CrearLista()
