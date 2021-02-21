@@ -323,25 +323,28 @@ func EliminandoTienda() string {
 				ps = j + 1
 			}
 			primero = ps - h
+			fmt.Println(primero)
 			break
 		}
 	}
 	for j := 0; j < len(mandar.Datos); j++ {
 		if string(eliminando.Nombre[0]) == mandar.Datos[j].Indice {
 			segundo = (primero * len(mandar.Datos)) + j
+			fmt.Println(segundo)
 			break
 		}
 	}
 	tercero = (segundo*5 + eliminando.Calificacion) - 1
-	fmt.Println("tercero es" + strconv.Itoa(tercero))
-	var nodorecibir *Listas.ListaEnlazada = veclin[tercero].Eliminartienda(eliminando.Nombre)
+	fmt.Println("tercero es " + strconv.Itoa(tercero))
+	var nodorecibir *Listas.ListaEnlazada
 	var mensaje string
-	if nodorecibir == veclin[tercero] {
-		mensaje = "No se elimino nada tienda"
-	} else {
-		mensaje = "Se elimino tienda"
+	if veclin[tercero] != nil {
+		nodorecibir = veclin[tercero].Eliminartienda(eliminando.Nombre)
 		veclin[tercero] = nil
 		veclin[tercero] = nodorecibir
+		mensaje = "Se elimino tienda"
+	} else {
+		mensaje = "No se elimino nada tienda"
 	}
 	fmt.Println("El mensaje que lleva es " + mensaje)
 	return mensaje
