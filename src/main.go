@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"os/exec"
 	"strconv"
 
 	"./Listas"
@@ -85,6 +87,14 @@ func exportarJson(w http.ResponseWriter, r *http.Request) {
 	_ = ioutil.WriteFile("201908338_guardar.json", file, 0644)
 }
 
+//Graficando
+func graficando(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
+	w.WriteHeader(http.StatusFound)
+	var mensaje string = Grafico()
+	json.NewEncoder(w).Encode(mensaje)
+}
+
 //Funciones utiles
 //BuscarID
 func buscarID(w http.ResponseWriter, r *http.Request) {
@@ -135,6 +145,73 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 }
 
 //Reportes
+func Grafico() string {
+	fmt.Println("Entro a graficar")
+	//Encabezados Graf
+	archivo, _ := os.Create("graficoLinealizado.dot")
+	_, _ = archivo.WriteString("digraph grafico{" + "\n")
+	_, _ = archivo.WriteString("compound=true;" + "\n")
+	var califindice = 1
+	//Nodos base
+	_, _ = archivo.WriteString("subgraph cluster0{" + "\n")
+	_, _ = archivo.WriteString("edge[minlen=0.1, dir=fordware]" + "\n")
+	_, _ = archivo.WriteString("cabecera [label=\"cabecera\", shape=none]" + "\n")
+	for i := 0; i < len(veclin); i++ {
+		if califindice == 6 {
+			califindice = 1
+		}
+		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + "[shape=record,label=\"...|...|{ " + strconv.Itoa(califindice) + " | pos:" + strconv.Itoa(i) + "}];" + "\n")
+		califindice++
+		_, _ = archivo.WriteString("null [label=\"null\", shape=none]" + "\n")
+		_, _ = archivo.WriteString("cabecera -> struct" + strconv.Itoa(i) + "\n")
+		_, _ = archivo.WriteString("cabecera -> struct" + strconv.Itoa(i) + "\n")
+	}
+	_, _ = archivo.WriteString("cabecera -> struct1" + "\n")
+	for i := 0; i < len(veclin); i++ {
+		if i+1 == len(veclin) {
+			_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> null;" + "\n")
+		} else {
+			_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> struct" + strconv.Itoa(i+1) + ";" + "\n")
+		}
+	}
+	_, _ = archivo.WriteString("}" + "\n")
+	fmt.Println("Termino nodo base")
+	//Nodos Tiendas
+	for i := 0; i < len(veclin); i++ {
+		_, _ = archivo.WriteString("subgraph cluster" + strconv.Itoa(i) + "{" + "\n")
+		_, _ = archivo.WriteString("edge[dir=both]" + "\n")
+		var recibirlong int
+		if veclin[i] != nil {
+			recibirlong = veclin[i].PasarNodoID()
+			fmt.Println("longitud lista en nodo")
+			fmt.Println(recibirlong)
+		}
+		if recibirlong != 0 {
+			var buscanombre string = ""
+			for j := 0; j < recibirlong; j++ {
+				var nodorecibir *Listas.Nodo = veclin[i].RecorrerID(buscanombre)
+				buscanombre = nodorecibir.Nombre
+				var nom string = nodorecibir.Nombre
+				var con string = nodorecibir.Contacto
+				_, _ = archivo.WriteString("nodo1 [shape=record,label=\"{ " + nom + " | " + con + "}\"];" + "\n")
+				if j != 0 {
+					_, _ = archivo.WriteString("struct" + strconv.Itoa(j-1) + " -> struct" + strconv.Itoa(j) + ";" + "\n")
+				}
+				fmt.Println(nodorecibir.Nombre)
+				fmt.Println("CargoTiendas")
+			}
+		}
+		_, _ = archivo.WriteString("}" + "\n")
+	}
+	fmt.Println("Termino")
+	_, _ = archivo.WriteString("}" + "\n")
+	archivo.Close()
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpdf", "./graficoLinealizado.dot").Output()
+	mode := 0777
+	_ = ioutil.WriteFile("grafica.pdf", cmd, os.FileMode(mode))
+	return "Grafico listo"
+}
 
 //Exportar
 func exportarVector() *Raiz {
@@ -378,5 +455,6 @@ func main() {
 	router.HandleFunc("/id/{id}", buscarID).Methods("GET")
 	router.HandleFunc("/guardar", exportarJson).Methods("GET")
 	router.HandleFunc("/Eliminar", EliminarTienda).Methods("DELETE")
+	router.HandleFunc("/getArreglo", graficando).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }

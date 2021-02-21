@@ -1,0 +1,516 @@
+digraph grafico{
+compound=true;
+subgraph cluster0{
+edge[minlen=0.1, dir=fordware]
+cabecera [label="cabecera", shape=none]
+struct0[shape=record,label="...|...|{ 1 | pos:0}];
+null [label="null", shape=none]
+cabecera -> struct0
+cabecera -> struct0
+struct1[shape=record,label="...|...|{ 2 | pos:1}];
+null [label="null", shape=none]
+cabecera -> struct1
+cabecera -> struct1
+struct2[shape=record,label="...|...|{ 3 | pos:2}];
+null [label="null", shape=none]
+cabecera -> struct2
+cabecera -> struct2
+struct3[shape=record,label="...|...|{ 4 | pos:3}];
+null [label="null", shape=none]
+cabecera -> struct3
+cabecera -> struct3
+struct4[shape=record,label="...|...|{ 5 | pos:4}];
+null [label="null", shape=none]
+cabecera -> struct4
+cabecera -> struct4
+struct5[shape=record,label="...|...|{ 1 | pos:5}];
+null [label="null", shape=none]
+cabecera -> struct5
+cabecera -> struct5
+struct6[shape=record,label="...|...|{ 2 | pos:6}];
+null [label="null", shape=none]
+cabecera -> struct6
+cabecera -> struct6
+struct7[shape=record,label="...|...|{ 3 | pos:7}];
+null [label="null", shape=none]
+cabecera -> struct7
+cabecera -> struct7
+struct8[shape=record,label="...|...|{ 4 | pos:8}];
+null [label="null", shape=none]
+cabecera -> struct8
+cabecera -> struct8
+struct9[shape=record,label="...|...|{ 5 | pos:9}];
+null [label="null", shape=none]
+cabecera -> struct9
+cabecera -> struct9
+struct10[shape=record,label="...|...|{ 1 | pos:10}];
+null [label="null", shape=none]
+cabecera -> struct10
+cabecera -> struct10
+struct11[shape=record,label="...|...|{ 2 | pos:11}];
+null [label="null", shape=none]
+cabecera -> struct11
+cabecera -> struct11
+struct12[shape=record,label="...|...|{ 3 | pos:12}];
+null [label="null", shape=none]
+cabecera -> struct12
+cabecera -> struct12
+struct13[shape=record,label="...|...|{ 4 | pos:13}];
+null [label="null", shape=none]
+cabecera -> struct13
+cabecera -> struct13
+struct14[shape=record,label="...|...|{ 5 | pos:14}];
+null [label="null", shape=none]
+cabecera -> struct14
+cabecera -> struct14
+struct15[shape=record,label="...|...|{ 1 | pos:15}];
+null [label="null", shape=none]
+cabecera -> struct15
+cabecera -> struct15
+struct16[shape=record,label="...|...|{ 2 | pos:16}];
+null [label="null", shape=none]
+cabecera -> struct16
+cabecera -> struct16
+struct17[shape=record,label="...|...|{ 3 | pos:17}];
+null [label="null", shape=none]
+cabecera -> struct17
+cabecera -> struct17
+struct18[shape=record,label="...|...|{ 4 | pos:18}];
+null [label="null", shape=none]
+cabecera -> struct18
+cabecera -> struct18
+struct19[shape=record,label="...|...|{ 5 | pos:19}];
+null [label="null", shape=none]
+cabecera -> struct19
+cabecera -> struct19
+struct20[shape=record,label="...|...|{ 1 | pos:20}];
+null [label="null", shape=none]
+cabecera -> struct20
+cabecera -> struct20
+struct21[shape=record,label="...|...|{ 2 | pos:21}];
+null [label="null", shape=none]
+cabecera -> struct21
+cabecera -> struct21
+struct22[shape=record,label="...|...|{ 3 | pos:22}];
+null [label="null", shape=none]
+cabecera -> struct22
+cabecera -> struct22
+struct23[shape=record,label="...|...|{ 4 | pos:23}];
+null [label="null", shape=none]
+cabecera -> struct23
+cabecera -> struct23
+struct24[shape=record,label="...|...|{ 5 | pos:24}];
+null [label="null", shape=none]
+cabecera -> struct24
+cabecera -> struct24
+struct25[shape=record,label="...|...|{ 1 | pos:25}];
+null [label="null", shape=none]
+cabecera -> struct25
+cabecera -> struct25
+struct26[shape=record,label="...|...|{ 2 | pos:26}];
+null [label="null", shape=none]
+cabecera -> struct26
+cabecera -> struct26
+struct27[shape=record,label="...|...|{ 3 | pos:27}];
+null [label="null", shape=none]
+cabecera -> struct27
+cabecera -> struct27
+struct28[shape=record,label="...|...|{ 4 | pos:28}];
+null [label="null", shape=none]
+cabecera -> struct28
+cabecera -> struct28
+struct29[shape=record,label="...|...|{ 5 | pos:29}];
+null [label="null", shape=none]
+cabecera -> struct29
+cabecera -> struct29
+struct30[shape=record,label="...|...|{ 1 | pos:30}];
+null [label="null", shape=none]
+cabecera -> struct30
+cabecera -> struct30
+struct31[shape=record,label="...|...|{ 2 | pos:31}];
+null [label="null", shape=none]
+cabecera -> struct31
+cabecera -> struct31
+struct32[shape=record,label="...|...|{ 3 | pos:32}];
+null [label="null", shape=none]
+cabecera -> struct32
+cabecera -> struct32
+struct33[shape=record,label="...|...|{ 4 | pos:33}];
+null [label="null", shape=none]
+cabecera -> struct33
+cabecera -> struct33
+struct34[shape=record,label="...|...|{ 5 | pos:34}];
+null [label="null", shape=none]
+cabecera -> struct34
+cabecera -> struct34
+struct35[shape=record,label="...|...|{ 1 | pos:35}];
+null [label="null", shape=none]
+cabecera -> struct35
+cabecera -> struct35
+struct36[shape=record,label="...|...|{ 2 | pos:36}];
+null [label="null", shape=none]
+cabecera -> struct36
+cabecera -> struct36
+struct37[shape=record,label="...|...|{ 3 | pos:37}];
+null [label="null", shape=none]
+cabecera -> struct37
+cabecera -> struct37
+struct38[shape=record,label="...|...|{ 4 | pos:38}];
+null [label="null", shape=none]
+cabecera -> struct38
+cabecera -> struct38
+struct39[shape=record,label="...|...|{ 5 | pos:39}];
+null [label="null", shape=none]
+cabecera -> struct39
+cabecera -> struct39
+struct40[shape=record,label="...|...|{ 1 | pos:40}];
+null [label="null", shape=none]
+cabecera -> struct40
+cabecera -> struct40
+struct41[shape=record,label="...|...|{ 2 | pos:41}];
+null [label="null", shape=none]
+cabecera -> struct41
+cabecera -> struct41
+struct42[shape=record,label="...|...|{ 3 | pos:42}];
+null [label="null", shape=none]
+cabecera -> struct42
+cabecera -> struct42
+struct43[shape=record,label="...|...|{ 4 | pos:43}];
+null [label="null", shape=none]
+cabecera -> struct43
+cabecera -> struct43
+struct44[shape=record,label="...|...|{ 5 | pos:44}];
+null [label="null", shape=none]
+cabecera -> struct44
+cabecera -> struct44
+struct45[shape=record,label="...|...|{ 1 | pos:45}];
+null [label="null", shape=none]
+cabecera -> struct45
+cabecera -> struct45
+struct46[shape=record,label="...|...|{ 2 | pos:46}];
+null [label="null", shape=none]
+cabecera -> struct46
+cabecera -> struct46
+struct47[shape=record,label="...|...|{ 3 | pos:47}];
+null [label="null", shape=none]
+cabecera -> struct47
+cabecera -> struct47
+struct48[shape=record,label="...|...|{ 4 | pos:48}];
+null [label="null", shape=none]
+cabecera -> struct48
+cabecera -> struct48
+struct49[shape=record,label="...|...|{ 5 | pos:49}];
+null [label="null", shape=none]
+cabecera -> struct49
+cabecera -> struct49
+struct50[shape=record,label="...|...|{ 1 | pos:50}];
+null [label="null", shape=none]
+cabecera -> struct50
+cabecera -> struct50
+struct51[shape=record,label="...|...|{ 2 | pos:51}];
+null [label="null", shape=none]
+cabecera -> struct51
+cabecera -> struct51
+struct52[shape=record,label="...|...|{ 3 | pos:52}];
+null [label="null", shape=none]
+cabecera -> struct52
+cabecera -> struct52
+struct53[shape=record,label="...|...|{ 4 | pos:53}];
+null [label="null", shape=none]
+cabecera -> struct53
+cabecera -> struct53
+struct54[shape=record,label="...|...|{ 5 | pos:54}];
+null [label="null", shape=none]
+cabecera -> struct54
+cabecera -> struct54
+struct55[shape=record,label="...|...|{ 1 | pos:55}];
+null [label="null", shape=none]
+cabecera -> struct55
+cabecera -> struct55
+struct56[shape=record,label="...|...|{ 2 | pos:56}];
+null [label="null", shape=none]
+cabecera -> struct56
+cabecera -> struct56
+struct57[shape=record,label="...|...|{ 3 | pos:57}];
+null [label="null", shape=none]
+cabecera -> struct57
+cabecera -> struct57
+struct58[shape=record,label="...|...|{ 4 | pos:58}];
+null [label="null", shape=none]
+cabecera -> struct58
+cabecera -> struct58
+struct59[shape=record,label="...|...|{ 5 | pos:59}];
+null [label="null", shape=none]
+cabecera -> struct59
+cabecera -> struct59
+cabecera -> struct1
+struct0 -> struct1;
+struct1 -> struct2;
+struct2 -> struct3;
+struct3 -> struct4;
+struct4 -> struct5;
+struct5 -> struct6;
+struct6 -> struct7;
+struct7 -> struct8;
+struct8 -> struct9;
+struct9 -> struct10;
+struct10 -> struct11;
+struct11 -> struct12;
+struct12 -> struct13;
+struct13 -> struct14;
+struct14 -> struct15;
+struct15 -> struct16;
+struct16 -> struct17;
+struct17 -> struct18;
+struct18 -> struct19;
+struct19 -> struct20;
+struct20 -> struct21;
+struct21 -> struct22;
+struct22 -> struct23;
+struct23 -> struct24;
+struct24 -> struct25;
+struct25 -> struct26;
+struct26 -> struct27;
+struct27 -> struct28;
+struct28 -> struct29;
+struct29 -> struct30;
+struct30 -> struct31;
+struct31 -> struct32;
+struct32 -> struct33;
+struct33 -> struct34;
+struct34 -> struct35;
+struct35 -> struct36;
+struct36 -> struct37;
+struct37 -> struct38;
+struct38 -> struct39;
+struct39 -> struct40;
+struct40 -> struct41;
+struct41 -> struct42;
+struct42 -> struct43;
+struct43 -> struct44;
+struct44 -> struct45;
+struct45 -> struct46;
+struct46 -> struct47;
+struct47 -> struct48;
+struct48 -> struct49;
+struct49 -> struct50;
+struct50 -> struct51;
+struct51 -> struct52;
+struct52 -> struct53;
+struct53 -> struct54;
+struct54 -> struct55;
+struct55 -> struct56;
+struct56 -> struct57;
+struct57 -> struct58;
+struct58 -> struct59;
+struct59 -> null;
+}
+subgraph cluster0{
+edge[dir=both]
+}
+subgraph cluster1{
+edge[dir=both]
+nodo1 [shape=record,label="{ Alvarado y Piña | 991.850.635}"];
+}
+subgraph cluster2{
+edge[dir=both]
+}
+subgraph cluster3{
+edge[dir=both]
+}
+subgraph cluster4{
+edge[dir=both]
+}
+subgraph cluster5{
+edge[dir=both]
+}
+subgraph cluster6{
+edge[dir=both]
+}
+subgraph cluster7{
+edge[dir=both]
+nodo1 [shape=record,label="{ Balderas y Agosto | 979 824 130}"];
+}
+subgraph cluster8{
+edge[dir=both]
+}
+subgraph cluster9{
+edge[dir=both]
+nodo1 [shape=record,label="{ Badillo Ramírez e Hijos | 916-817-258}"];
+nodo1 [shape=record,label="{ Bueno Santacruz e Hijos | 989-167-262}"];
+struct0 -> struct1;
+}
+subgraph cluster10{
+edge[dir=both]
+}
+subgraph cluster11{
+edge[dir=both]
+}
+subgraph cluster12{
+edge[dir=both]
+nodo1 [shape=record,label="{ Coronado e Hijos | 995 562 913}"];
+}
+subgraph cluster13{
+edge[dir=both]
+}
+subgraph cluster14{
+edge[dir=both]
+}
+subgraph cluster15{
+edge[dir=both]
+}
+subgraph cluster16{
+edge[dir=both]
+}
+subgraph cluster17{
+edge[dir=both]
+nodo1 [shape=record,label="{ Adorno y Camacho | 985298151}"];
+}
+subgraph cluster18{
+edge[dir=both]
+}
+subgraph cluster19{
+edge[dir=both]
+}
+subgraph cluster20{
+edge[dir=both]
+}
+subgraph cluster21{
+edge[dir=both]
+nodo1 [shape=record,label="{ Bermúdez y Ceballos | 942 004 668}"];
+nodo1 [shape=record,label="{ Bermúdez Arreola S.A. | 930830885}"];
+struct0 -> struct1;
+}
+subgraph cluster22{
+edge[dir=both]
+}
+subgraph cluster23{
+edge[dir=both]
+}
+subgraph cluster24{
+edge[dir=both]
+}
+subgraph cluster25{
+edge[dir=both]
+}
+subgraph cluster26{
+edge[dir=both]
+nodo1 [shape=record,label="{ Cortés e Hijos | 949 915 891}"];
+}
+subgraph cluster27{
+edge[dir=both]
+nodo1 [shape=record,label="{ Cedillo Toro Hermanos | 961308585}"];
+}
+subgraph cluster28{
+edge[dir=both]
+}
+subgraph cluster29{
+edge[dir=both]
+nodo1 [shape=record,label="{ Cuellar y Palomo | 916.992.110}"];
+}
+subgraph cluster30{
+edge[dir=both]
+}
+subgraph cluster31{
+edge[dir=both]
+}
+subgraph cluster32{
+edge[dir=both]
+}
+subgraph cluster33{
+edge[dir=both]
+}
+subgraph cluster34{
+edge[dir=both]
+nodo1 [shape=record,label="{ Alcala Mora Hermanos | 980-827-817}"];
+}
+subgraph cluster35{
+edge[dir=both]
+}
+subgraph cluster36{
+edge[dir=both]
+nodo1 [shape=record,label="{ Benavídez y Pantoja | 985 363 456}"];
+}
+subgraph cluster37{
+edge[dir=both]
+nodo1 [shape=record,label="{ Bermúdez S.A. | 924 718 993}"];
+}
+subgraph cluster38{
+edge[dir=both]
+}
+subgraph cluster39{
+edge[dir=both]
+}
+subgraph cluster40{
+edge[dir=both]
+nodo1 [shape=record,label="{ Carreón Hermanos | 938.458.084}"];
+}
+subgraph cluster41{
+edge[dir=both]
+nodo1 [shape=record,label="{ Calderón e Hijos | 915 327 452}"];
+}
+subgraph cluster42{
+edge[dir=both]
+}
+subgraph cluster43{
+edge[dir=both]
+nodo1 [shape=record,label="{ Concepción y Valle | 965553098}"];
+}
+subgraph cluster44{
+edge[dir=both]
+}
+subgraph cluster45{
+edge[dir=both]
+nodo1 [shape=record,label="{ Adame Delrío S.A. | 909845637}"];
+}
+subgraph cluster46{
+edge[dir=both]
+}
+subgraph cluster47{
+edge[dir=both]
+nodo1 [shape=record,label="{ Anguiano Escalante e Hijos | 987-076-119}"];
+}
+subgraph cluster48{
+edge[dir=both]
+nodo1 [shape=record,label="{ Almaraz Espinal S.L. | 943518867}"];
+}
+subgraph cluster49{
+edge[dir=both]
+}
+subgraph cluster50{
+edge[dir=both]
+}
+subgraph cluster51{
+edge[dir=both]
+}
+subgraph cluster52{
+edge[dir=both]
+}
+subgraph cluster53{
+edge[dir=both]
+}
+subgraph cluster54{
+edge[dir=both]
+nodo1 [shape=record,label="{ Barrera Hermanos | 963 404 333}"];
+nodo1 [shape=record,label="{ Batista Vélez e Hijos | 984 736 539}"];
+struct0 -> struct1;
+}
+subgraph cluster55{
+edge[dir=both]
+}
+subgraph cluster56{
+edge[dir=both]
+nodo1 [shape=record,label="{ Casárez Pacheco Hermanos | 929-971-783}"];
+nodo1 [shape=record,label="{ Carrasquillo S.A. | 956.519.297}"];
+struct0 -> struct1;
+}
+subgraph cluster57{
+edge[dir=both]
+}
+subgraph cluster58{
+edge[dir=both]
+}
+subgraph cluster59{
+edge[dir=both]
+}
+}
