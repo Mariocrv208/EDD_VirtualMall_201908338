@@ -123,12 +123,7 @@ func EliminarTienda(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &eliminando)
 	mens = EliminandoTienda()
-	if mens == "" {
-		mens = "No se encontro ningun nodo"
-		json.NewEncoder(w).Encode(mens)
-	} else {
-		json.NewEncoder(w).Encode(mens)
-	}
+	json.NewEncoder(w).Encode(mens)
 }
 
 //buscar especifico
@@ -331,24 +326,22 @@ func EliminandoTienda() string {
 			break
 		}
 	}
-	for i := 0; i < len(eliminando.Nombre); i++ {
-		for j := 0; j < len(mandar.Datos); j++ {
-			if string(eliminando.Nombre[0]) == mandar.Datos[j].Indice {
-				segundo = (primero * len(mandar.Datos)) + j
-				break
-			}
+	for j := 0; j < len(mandar.Datos); j++ {
+		if string(eliminando.Nombre[0]) == mandar.Datos[j].Indice {
+			segundo = (primero * len(mandar.Datos)) + j
+			break
 		}
 	}
 	tercero = (segundo*5 + eliminando.Calificacion) - 1
-	fmt.Println(tercero)
+	fmt.Println("tercero es" + strconv.Itoa(tercero))
 	var nodorecibir *Listas.ListaEnlazada = veclin[tercero].Eliminartienda(eliminando.Nombre)
 	var mensaje string
 	if nodorecibir == veclin[tercero] {
-		mensaje = "Se elimino una tienda"
+		mensaje = "No se elimino nada tienda"
+	} else {
+		mensaje = "Se elimino tienda"
 		veclin[tercero] = nil
 		veclin[tercero] = nodorecibir
-	} else {
-		mensaje = "No se elimino nada"
 	}
 	fmt.Println("El mensaje que lleva es " + mensaje)
 	return mensaje
