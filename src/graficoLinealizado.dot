@@ -3,126 +3,66 @@ compound=true;
 subgraph cluster0{
 edge[minlen=0.1, dir=fordware]
 cabecera [label="cabecera", shape=none]
-struct0[shape=record,label="...|...|{ 1 | pos:0}];
-null [label="null", shape=none]
-struct1[shape=record,label="...|...|{ 2 | pos:1}];
-null [label="null", shape=none]
-struct2[shape=record,label="...|...|{ 3 | pos:2}];
-null [label="null", shape=none]
-struct3[shape=record,label="...|...|{ 4 | pos:3}];
-null [label="null", shape=none]
-struct4[shape=record,label="...|...|{ 5 | pos:4}];
-null [label="null", shape=none]
-struct5[shape=record,label="...|...|{ 1 | pos:5}];
-null [label="null", shape=none]
-struct6[shape=record,label="...|...|{ 2 | pos:6}];
-null [label="null", shape=none]
-struct7[shape=record,label="...|...|{ 3 | pos:7}];
-null [label="null", shape=none]
-struct8[shape=record,label="...|...|{ 4 | pos:8}];
-null [label="null", shape=none]
-struct9[shape=record,label="...|...|{ 5 | pos:9}];
-null [label="null", shape=none]
-struct10[shape=record,label="...|...|{ 1 | pos:10}];
-null [label="null", shape=none]
-struct11[shape=record,label="...|...|{ 2 | pos:11}];
-null [label="null", shape=none]
-struct12[shape=record,label="...|...|{ 3 | pos:12}];
-null [label="null", shape=none]
-struct13[shape=record,label="...|...|{ 4 | pos:13}];
-null [label="null", shape=none]
-struct14[shape=record,label="...|...|{ 5 | pos:14}];
-null [label="null", shape=none]
-struct15[shape=record,label="...|...|{ 1 | pos:15}];
-null [label="null", shape=none]
-struct16[shape=record,label="...|...|{ 2 | pos:16}];
-null [label="null", shape=none]
-struct17[shape=record,label="...|...|{ 3 | pos:17}];
-null [label="null", shape=none]
-struct18[shape=record,label="...|...|{ 4 | pos:18}];
-null [label="null", shape=none]
-struct19[shape=record,label="...|...|{ 5 | pos:19}];
-null [label="null", shape=none]
-struct20[shape=record,label="...|...|{ 1 | pos:20}];
-null [label="null", shape=none]
-struct21[shape=record,label="...|...|{ 2 | pos:21}];
-null [label="null", shape=none]
-struct22[shape=record,label="...|...|{ 3 | pos:22}];
-null [label="null", shape=none]
-struct23[shape=record,label="...|...|{ 4 | pos:23}];
-null [label="null", shape=none]
-struct24[shape=record,label="...|...|{ 5 | pos:24}];
-null [label="null", shape=none]
-struct25[shape=record,label="...|...|{ 1 | pos:25}];
-null [label="null", shape=none]
-struct26[shape=record,label="...|...|{ 2 | pos:26}];
-null [label="null", shape=none]
-struct27[shape=record,label="...|...|{ 3 | pos:27}];
-null [label="null", shape=none]
-struct28[shape=record,label="...|...|{ 4 | pos:28}];
-null [label="null", shape=none]
-struct29[shape=record,label="...|...|{ 5 | pos:29}];
-null [label="null", shape=none]
-struct30[shape=record,label="...|...|{ 1 | pos:30}];
-null [label="null", shape=none]
-struct31[shape=record,label="...|...|{ 2 | pos:31}];
-null [label="null", shape=none]
-struct32[shape=record,label="...|...|{ 3 | pos:32}];
-null [label="null", shape=none]
-struct33[shape=record,label="...|...|{ 4 | pos:33}];
-null [label="null", shape=none]
-struct34[shape=record,label="...|...|{ 5 | pos:34}];
-null [label="null", shape=none]
-struct35[shape=record,label="...|...|{ 1 | pos:35}];
-null [label="null", shape=none]
-struct36[shape=record,label="...|...|{ 2 | pos:36}];
-null [label="null", shape=none]
-struct37[shape=record,label="...|...|{ 3 | pos:37}];
-null [label="null", shape=none]
-struct38[shape=record,label="...|...|{ 4 | pos:38}];
-null [label="null", shape=none]
-struct39[shape=record,label="...|...|{ 5 | pos:39}];
-null [label="null", shape=none]
-struct40[shape=record,label="...|...|{ 1 | pos:40}];
-null [label="null", shape=none]
-struct41[shape=record,label="...|...|{ 2 | pos:41}];
-null [label="null", shape=none]
-struct42[shape=record,label="...|...|{ 3 | pos:42}];
-null [label="null", shape=none]
-struct43[shape=record,label="...|...|{ 4 | pos:43}];
-null [label="null", shape=none]
-struct44[shape=record,label="...|...|{ 5 | pos:44}];
-null [label="null", shape=none]
-struct45[shape=record,label="...|...|{ 1 | pos:45}];
-null [label="null", shape=none]
-struct46[shape=record,label="...|...|{ 2 | pos:46}];
-null [label="null", shape=none]
-struct47[shape=record,label="...|...|{ 3 | pos:47}];
-null [label="null", shape=none]
-struct48[shape=record,label="...|...|{ 4 | pos:48}];
-null [label="null", shape=none]
-struct49[shape=record,label="...|...|{ 5 | pos:49}];
-null [label="null", shape=none]
-struct50[shape=record,label="...|...|{ 1 | pos:50}];
-null [label="null", shape=none]
-struct51[shape=record,label="...|...|{ 2 | pos:51}];
-null [label="null", shape=none]
-struct52[shape=record,label="...|...|{ 3 | pos:52}];
-null [label="null", shape=none]
-struct53[shape=record,label="...|...|{ 4 | pos:53}];
-null [label="null", shape=none]
-struct54[shape=record,label="...|...|{ 5 | pos:54}];
-null [label="null", shape=none]
-struct55[shape=record,label="...|...|{ 1 | pos:55}];
-null [label="null", shape=none]
-struct56[shape=record,label="...|...|{ 2 | pos:56}];
-null [label="null", shape=none]
-struct57[shape=record,label="...|...|{ 3 | pos:57}];
-null [label="null", shape=none]
-struct58[shape=record,label="...|...|{ 4 | pos:58}];
-null [label="null", shape=none]
-struct59[shape=record,label="...|...|{ 5 | pos:59}];
-null [label="null", shape=none]
+struct0[shape=record,label="...|...|{ 1 | pos:0}"];
+struct1[shape=record,label="...|...|{ 2 | pos:1}"];
+struct2[shape=record,label="...|...|{ 3 | pos:2}"];
+struct3[shape=record,label="...|...|{ 4 | pos:3}"];
+struct4[shape=record,label="...|...|{ 5 | pos:4}"];
+struct5[shape=record,label="...|...|{ 1 | pos:5}"];
+struct6[shape=record,label="...|...|{ 2 | pos:6}"];
+struct7[shape=record,label="...|...|{ 3 | pos:7}"];
+struct8[shape=record,label="...|...|{ 4 | pos:8}"];
+struct9[shape=record,label="...|...|{ 5 | pos:9}"];
+struct10[shape=record,label="...|...|{ 1 | pos:10}"];
+struct11[shape=record,label="...|...|{ 2 | pos:11}"];
+struct12[shape=record,label="...|...|{ 3 | pos:12}"];
+struct13[shape=record,label="...|...|{ 4 | pos:13}"];
+struct14[shape=record,label="...|...|{ 5 | pos:14}"];
+struct15[shape=record,label="...|...|{ 1 | pos:15}"];
+struct16[shape=record,label="...|...|{ 2 | pos:16}"];
+struct17[shape=record,label="...|...|{ 3 | pos:17}"];
+struct18[shape=record,label="...|...|{ 4 | pos:18}"];
+struct19[shape=record,label="...|...|{ 5 | pos:19}"];
+struct20[shape=record,label="...|...|{ 1 | pos:20}"];
+struct21[shape=record,label="...|...|{ 2 | pos:21}"];
+struct22[shape=record,label="...|...|{ 3 | pos:22}"];
+struct23[shape=record,label="...|...|{ 4 | pos:23}"];
+struct24[shape=record,label="...|...|{ 5 | pos:24}"];
+struct25[shape=record,label="...|...|{ 1 | pos:25}"];
+struct26[shape=record,label="...|...|{ 2 | pos:26}"];
+struct27[shape=record,label="...|...|{ 3 | pos:27}"];
+struct28[shape=record,label="...|...|{ 4 | pos:28}"];
+struct29[shape=record,label="...|...|{ 5 | pos:29}"];
+struct30[shape=record,label="...|...|{ 1 | pos:30}"];
+struct31[shape=record,label="...|...|{ 2 | pos:31}"];
+struct32[shape=record,label="...|...|{ 3 | pos:32}"];
+struct33[shape=record,label="...|...|{ 4 | pos:33}"];
+struct34[shape=record,label="...|...|{ 5 | pos:34}"];
+struct35[shape=record,label="...|...|{ 1 | pos:35}"];
+struct36[shape=record,label="...|...|{ 2 | pos:36}"];
+struct37[shape=record,label="...|...|{ 3 | pos:37}"];
+struct38[shape=record,label="...|...|{ 4 | pos:38}"];
+struct39[shape=record,label="...|...|{ 5 | pos:39}"];
+struct40[shape=record,label="...|...|{ 1 | pos:40}"];
+struct41[shape=record,label="...|...|{ 2 | pos:41}"];
+struct42[shape=record,label="...|...|{ 3 | pos:42}"];
+struct43[shape=record,label="...|...|{ 4 | pos:43}"];
+struct44[shape=record,label="...|...|{ 5 | pos:44}"];
+struct45[shape=record,label="...|...|{ 1 | pos:45}"];
+struct46[shape=record,label="...|...|{ 2 | pos:46}"];
+struct47[shape=record,label="...|...|{ 3 | pos:47}"];
+struct48[shape=record,label="...|...|{ 4 | pos:48}"];
+struct49[shape=record,label="...|...|{ 5 | pos:49}"];
+struct50[shape=record,label="...|...|{ 1 | pos:50}"];
+struct51[shape=record,label="...|...|{ 2 | pos:51}"];
+struct52[shape=record,label="...|...|{ 3 | pos:52}"];
+struct53[shape=record,label="...|...|{ 4 | pos:53}"];
+struct54[shape=record,label="...|...|{ 5 | pos:54}"];
+struct55[shape=record,label="...|...|{ 1 | pos:55}"];
+struct56[shape=record,label="...|...|{ 2 | pos:56}"];
+struct57[shape=record,label="...|...|{ 3 | pos:57}"];
+struct58[shape=record,label="...|...|{ 4 | pos:58}"];
+struct59[shape=record,label="...|...|{ 5 | pos:59}"];
 cabecera -> struct0
 struct0 -> struct1;
 struct1 -> struct2;
@@ -209,16 +149,16 @@ edge[dir=both]
 }
 subgraph cluster8{
 edge[dir=both]
-nodo0 [shape=record,label="{ Balderas y Agosto | 979 824 130}"];
+nodo1 [shape=record,label="{ Balderas y Agosto | 979 824 130}"];
 }
 subgraph cluster9{
 edge[dir=both]
 }
 subgraph cluster10{
 edge[dir=both]
-nodo0 [shape=record,label="{ Badillo Ramírez e Hijos | 916-817-258}"];
-nodo1 [shape=record,label="{ Bueno Santacruz e Hijos | 989-167-262}"];
-struct0 -> struct1;
+nodo2 [shape=record,label="{ Badillo Ramírez e Hijos | 916-817-258}"];
+nodo3 [shape=record,label="{ Bueno Santacruz e Hijos | 989-167-262}"];
+nodo2 -> nodo3;
 }
 subgraph cluster11{
 edge[dir=both]
@@ -228,7 +168,7 @@ edge[dir=both]
 }
 subgraph cluster13{
 edge[dir=both]
-nodo0 [shape=record,label="{ Coronado e Hijos | 995 562 913}"];
+nodo4 [shape=record,label="{ Coronado e Hijos | 995 562 913}"];
 }
 subgraph cluster14{
 edge[dir=both]
@@ -244,7 +184,7 @@ edge[dir=both]
 }
 subgraph cluster18{
 edge[dir=both]
-nodo0 [shape=record,label="{ Adorno y Camacho | 985298151}"];
+nodo5 [shape=record,label="{ Adorno y Camacho | 985298151}"];
 }
 subgraph cluster19{
 edge[dir=both]
@@ -257,9 +197,9 @@ edge[dir=both]
 }
 subgraph cluster22{
 edge[dir=both]
-nodo0 [shape=record,label="{ Bermúdez y Ceballos | 942 004 668}"];
-nodo1 [shape=record,label="{ Bermúdez Arreola S.A. | 930830885}"];
-struct0 -> struct1;
+nodo6 [shape=record,label="{ Bermúdez y Ceballos | 942 004 668}"];
+nodo7 [shape=record,label="{ Bermúdez Arreola S.A. | 930830885}"];
+nodo6 -> nodo7;
 }
 subgraph cluster23{
 edge[dir=both]
@@ -275,18 +215,18 @@ edge[dir=both]
 }
 subgraph cluster27{
 edge[dir=both]
-nodo0 [shape=record,label="{ Cortés e Hijos | 949 915 891}"];
+nodo8 [shape=record,label="{ Cortés e Hijos | 949 915 891}"];
 }
 subgraph cluster28{
 edge[dir=both]
-nodo0 [shape=record,label="{ Cedillo Toro Hermanos | 961308585}"];
+nodo9 [shape=record,label="{ Cedillo Toro Hermanos | 961308585}"];
 }
 subgraph cluster29{
 edge[dir=both]
 }
 subgraph cluster30{
 edge[dir=both]
-nodo0 [shape=record,label="{ Cuellar y Palomo | 916.992.110}"];
+nodo10 [shape=record,label="{ Cuellar y Palomo | 916.992.110}"];
 }
 subgraph cluster31{
 edge[dir=both]
@@ -302,18 +242,18 @@ edge[dir=both]
 }
 subgraph cluster35{
 edge[dir=both]
-nodo0 [shape=record,label="{ Alcala Mora Hermanos | 980-827-817}"];
+nodo11 [shape=record,label="{ Alcala Mora Hermanos | 980-827-817}"];
 }
 subgraph cluster36{
 edge[dir=both]
 }
 subgraph cluster37{
 edge[dir=both]
-nodo0 [shape=record,label="{ Benavídez y Pantoja | 985 363 456}"];
+nodo12 [shape=record,label="{ Benavídez y Pantoja | 985 363 456}"];
 }
 subgraph cluster38{
 edge[dir=both]
-nodo0 [shape=record,label="{ Bermúdez S.A. | 924 718 993}"];
+nodo13 [shape=record,label="{ Bermúdez S.A. | 924 718 993}"];
 }
 subgraph cluster39{
 edge[dir=both]
@@ -323,36 +263,36 @@ edge[dir=both]
 }
 subgraph cluster41{
 edge[dir=both]
-nodo0 [shape=record,label="{ Carreón Hermanos | 938.458.084}"];
+nodo14 [shape=record,label="{ Carreón Hermanos | 938.458.084}"];
 }
 subgraph cluster42{
 edge[dir=both]
-nodo0 [shape=record,label="{ Calderón e Hijos | 915 327 452}"];
+nodo15 [shape=record,label="{ Calderón e Hijos | 915 327 452}"];
 }
 subgraph cluster43{
 edge[dir=both]
 }
 subgraph cluster44{
 edge[dir=both]
-nodo0 [shape=record,label="{ Concepción y Valle | 965553098}"];
+nodo16 [shape=record,label="{ Concepción y Valle | 965553098}"];
 }
 subgraph cluster45{
 edge[dir=both]
 }
 subgraph cluster46{
 edge[dir=both]
-nodo0 [shape=record,label="{ Adame Delrío S.A. | 909845637}"];
+nodo17 [shape=record,label="{ Adame Delrío S.A. | 909845637}"];
 }
 subgraph cluster47{
 edge[dir=both]
 }
 subgraph cluster48{
 edge[dir=both]
-nodo0 [shape=record,label="{ Anguiano Escalante e Hijos | 987-076-119}"];
+nodo18 [shape=record,label="{ Anguiano Escalante e Hijos | 987-076-119}"];
 }
 subgraph cluster49{
 edge[dir=both]
-nodo0 [shape=record,label="{ Almaraz Espinal S.L. | 943518867}"];
+nodo19 [shape=record,label="{ Almaraz Espinal S.L. | 943518867}"];
 }
 subgraph cluster50{
 edge[dir=both]
@@ -371,18 +311,18 @@ edge[dir=both]
 }
 subgraph cluster55{
 edge[dir=both]
-nodo0 [shape=record,label="{ Barrera Hermanos | 963 404 333}"];
-nodo1 [shape=record,label="{ Batista Vélez e Hijos | 984 736 539}"];
-struct0 -> struct1;
+nodo20 [shape=record,label="{ Barrera Hermanos | 963 404 333}"];
+nodo21 [shape=record,label="{ Batista Vélez e Hijos | 984 736 539}"];
+nodo20 -> nodo21;
 }
 subgraph cluster56{
 edge[dir=both]
 }
 subgraph cluster57{
 edge[dir=both]
-nodo0 [shape=record,label="{ Casárez Pacheco Hermanos | 929-971-783}"];
-nodo1 [shape=record,label="{ Carrasquillo S.A. | 956.519.297}"];
-struct0 -> struct1;
+nodo22 [shape=record,label="{ Casárez Pacheco Hermanos | 929-971-783}"];
+nodo23 [shape=record,label="{ Carrasquillo S.A. | 956.519.297}"];
+nodo22 -> nodo23;
 }
 subgraph cluster58{
 edge[dir=both]
@@ -393,64 +333,24 @@ edge[dir=both]
 subgraph cluster60{
 edge[dir=both]
 }
-struct0 -> nodo0 [lhead=cluster1];
 struct1 -> nodo0 [lhead=cluster2];
-struct2 -> nodo0 [lhead=cluster3];
-struct3 -> nodo0 [lhead=cluster4];
-struct4 -> nodo0 [lhead=cluster5];
-struct5 -> nodo0 [lhead=cluster6];
-struct6 -> nodo0 [lhead=cluster7];
-struct7 -> nodo0 [lhead=cluster8];
-struct8 -> nodo0 [lhead=cluster9];
-struct9 -> nodo0 [lhead=cluster10];
-struct10 -> nodo0 [lhead=cluster11];
-struct11 -> nodo0 [lhead=cluster12];
-struct12 -> nodo0 [lhead=cluster13];
-struct13 -> nodo0 [lhead=cluster14];
-struct14 -> nodo0 [lhead=cluster15];
-struct15 -> nodo0 [lhead=cluster16];
-struct16 -> nodo0 [lhead=cluster17];
-struct17 -> nodo0 [lhead=cluster18];
-struct18 -> nodo0 [lhead=cluster19];
-struct19 -> nodo0 [lhead=cluster20];
-struct20 -> nodo0 [lhead=cluster21];
-struct21 -> nodo0 [lhead=cluster22];
-struct22 -> nodo0 [lhead=cluster23];
-struct23 -> nodo0 [lhead=cluster24];
-struct24 -> nodo0 [lhead=cluster25];
-struct25 -> nodo0 [lhead=cluster26];
-struct26 -> nodo0 [lhead=cluster27];
-struct27 -> nodo0 [lhead=cluster28];
-struct28 -> nodo0 [lhead=cluster29];
-struct29 -> nodo0 [lhead=cluster30];
-struct30 -> nodo0 [lhead=cluster31];
-struct31 -> nodo0 [lhead=cluster32];
-struct32 -> nodo0 [lhead=cluster33];
-struct33 -> nodo0 [lhead=cluster34];
-struct34 -> nodo0 [lhead=cluster35];
-struct35 -> nodo0 [lhead=cluster36];
-struct36 -> nodo0 [lhead=cluster37];
-struct37 -> nodo0 [lhead=cluster38];
-struct38 -> nodo0 [lhead=cluster39];
-struct39 -> nodo0 [lhead=cluster40];
-struct40 -> nodo0 [lhead=cluster41];
-struct41 -> nodo0 [lhead=cluster42];
-struct42 -> nodo0 [lhead=cluster43];
-struct43 -> nodo0 [lhead=cluster44];
-struct44 -> nodo0 [lhead=cluster45];
-struct45 -> nodo0 [lhead=cluster46];
-struct46 -> nodo0 [lhead=cluster47];
-struct47 -> nodo0 [lhead=cluster48];
-struct48 -> nodo0 [lhead=cluster49];
-struct49 -> nodo0 [lhead=cluster50];
-struct50 -> nodo0 [lhead=cluster51];
-struct51 -> nodo0 [lhead=cluster52];
-struct52 -> nodo0 [lhead=cluster53];
-struct53 -> nodo0 [lhead=cluster54];
-struct54 -> nodo0 [lhead=cluster55];
-struct55 -> nodo0 [lhead=cluster56];
-struct56 -> nodo0 [lhead=cluster57];
-struct57 -> nodo0 [lhead=cluster58];
-struct58 -> nodo0 [lhead=cluster59];
-struct59 -> nodo0 [lhead=cluster60];
+struct7 -> nodo1 [lhead=cluster8];
+struct9 -> nodo2 [lhead=cluster10];
+struct12 -> nodo4 [lhead=cluster13];
+struct17 -> nodo5 [lhead=cluster18];
+struct21 -> nodo6 [lhead=cluster22];
+struct26 -> nodo8 [lhead=cluster27];
+struct27 -> nodo9 [lhead=cluster28];
+struct29 -> nodo10 [lhead=cluster30];
+struct34 -> nodo11 [lhead=cluster35];
+struct36 -> nodo12 [lhead=cluster37];
+struct37 -> nodo13 [lhead=cluster38];
+struct40 -> nodo14 [lhead=cluster41];
+struct41 -> nodo15 [lhead=cluster42];
+struct43 -> nodo16 [lhead=cluster44];
+struct45 -> nodo17 [lhead=cluster46];
+struct47 -> nodo18 [lhead=cluster48];
+struct48 -> nodo19 [lhead=cluster49];
+struct54 -> nodo20 [lhead=cluster55];
+struct56 -> nodo22 [lhead=cluster57];
 }

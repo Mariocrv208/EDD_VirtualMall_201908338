@@ -160,9 +160,8 @@ func Grafico() string {
 		if califindice == 6 {
 			califindice = 1
 		}
-		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + "[shape=record,label=\"...|...|{ " + strconv.Itoa(califindice) + " | pos:" + strconv.Itoa(i) + "}];" + "\n")
+		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + "[shape=record,label=\"...|...|{ " + strconv.Itoa(califindice) + " | pos:" + strconv.Itoa(i) + "}\"];" + "\n")
 		califindice++
-		_, _ = archivo.WriteString("null [label=\"null\", shape=none]" + "\n")
 	}
 	_, _ = archivo.WriteString("cabecera -> struct0" + "\n")
 	for i := 0; i < len(veclin); i++ {
@@ -175,6 +174,10 @@ func Grafico() string {
 	_, _ = archivo.WriteString("}" + "\n")
 	fmt.Println("Termino nodo base")
 	//Nodos Tiendas
+	var cont int = 0
+	var mult int = 0
+	var multmulti2 []int
+	var multimult []int
 	for i := 0; i < len(veclin); i++ {
 		_, _ = archivo.WriteString("subgraph cluster" + strconv.Itoa(i+1) + "{" + "\n")
 		_, _ = archivo.WriteString("edge[dir=both]" + "\n")
@@ -184,17 +187,27 @@ func Grafico() string {
 			fmt.Println("longitud lista en nodo")
 			fmt.Println(recibirlong)
 		}
+		var pas int
 		if recibirlong != 0 {
+			mult = i
 			var buscanombre string = ""
+			pas = cont
+			multimult = append(multimult, mult)
+			multmulti2 = append(multmulti2, pas)
+			var permiso int = 1
 			for j := 0; j < recibirlong; j++ {
 				var nodorecibir *Listas.Nodo = veclin[i].RecorrerID(buscanombre)
 				buscanombre = nodorecibir.Nombre
 				var nom string = nodorecibir.Nombre
 				var con string = nodorecibir.Contacto
-				_, _ = archivo.WriteString("nodo" + strconv.Itoa(j) + " [shape=record,label=\"{ " + nom + " | " + con + "}\"];" + "\n")
-				if j != 0 {
-					_, _ = archivo.WriteString("struct" + strconv.Itoa(j-1) + " -> struct" + strconv.Itoa(j) + ";" + "\n")
+				_, _ = archivo.WriteString("nodo" + strconv.Itoa(cont) + " [shape=record,label=\"{ " + nom + " | " + con + "}\"];" + "\n")
+				if permiso == 2 {
+					_, _ = archivo.WriteString("nodo" + strconv.Itoa(cont-1) + " -> nodo" + strconv.Itoa(cont) + ";" + "\n")
+					permiso = 0
 				}
+				permiso++
+				cont++
+				pas++
 				fmt.Println(nodorecibir.Nombre)
 				fmt.Println("CargoTiendas")
 			}
@@ -203,7 +216,12 @@ func Grafico() string {
 	}
 	fmt.Println("Termino")
 	for i := 0; i < len(veclin); i++ {
-		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> nodo0 [lhead=cluster" + strconv.Itoa(i+1) + "];" + "\n")
+		for j := 0; j < len(multimult); j++ {
+			if multimult[j] == i {
+				_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> nodo" + strconv.Itoa(multmulti2[j]) + " [lhead=cluster" + strconv.Itoa(i+1) + "];" + "\n")
+			}
+		}
+
 	}
 	_, _ = archivo.WriteString("}" + "\n")
 	archivo.Close()
