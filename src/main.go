@@ -163,10 +163,8 @@ func Grafico() string {
 		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + "[shape=record,label=\"...|...|{ " + strconv.Itoa(califindice) + " | pos:" + strconv.Itoa(i) + "}];" + "\n")
 		califindice++
 		_, _ = archivo.WriteString("null [label=\"null\", shape=none]" + "\n")
-		_, _ = archivo.WriteString("cabecera -> struct" + strconv.Itoa(i) + "\n")
-		_, _ = archivo.WriteString("cabecera -> struct" + strconv.Itoa(i) + "\n")
 	}
-	_, _ = archivo.WriteString("cabecera -> struct1" + "\n")
+	_, _ = archivo.WriteString("cabecera -> struct0" + "\n")
 	for i := 0; i < len(veclin); i++ {
 		if i+1 == len(veclin) {
 			_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> null;" + "\n")
@@ -178,7 +176,7 @@ func Grafico() string {
 	fmt.Println("Termino nodo base")
 	//Nodos Tiendas
 	for i := 0; i < len(veclin); i++ {
-		_, _ = archivo.WriteString("subgraph cluster" + strconv.Itoa(i) + "{" + "\n")
+		_, _ = archivo.WriteString("subgraph cluster" + strconv.Itoa(i+1) + "{" + "\n")
 		_, _ = archivo.WriteString("edge[dir=both]" + "\n")
 		var recibirlong int
 		if veclin[i] != nil {
@@ -193,7 +191,7 @@ func Grafico() string {
 				buscanombre = nodorecibir.Nombre
 				var nom string = nodorecibir.Nombre
 				var con string = nodorecibir.Contacto
-				_, _ = archivo.WriteString("nodo1 [shape=record,label=\"{ " + nom + " | " + con + "}\"];" + "\n")
+				_, _ = archivo.WriteString("nodo" + strconv.Itoa(j) + " [shape=record,label=\"{ " + nom + " | " + con + "}\"];" + "\n")
 				if j != 0 {
 					_, _ = archivo.WriteString("struct" + strconv.Itoa(j-1) + " -> struct" + strconv.Itoa(j) + ";" + "\n")
 				}
@@ -204,6 +202,9 @@ func Grafico() string {
 		_, _ = archivo.WriteString("}" + "\n")
 	}
 	fmt.Println("Termino")
+	for i := 0; i < len(veclin); i++ {
+		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> nodo0 [lhead=cluster" + strconv.Itoa(i+1) + "];" + "\n")
+	}
 	_, _ = archivo.WriteString("}" + "\n")
 	archivo.Close()
 	path, _ := exec.LookPath("dot")
