@@ -15,7 +15,7 @@ type Nodo struct {
 }
 
 type ListaEnlazada struct {
-	cabeza *Nodo
+	Cabeza *Nodo
 	cola   *Nodo
 }
 
@@ -24,8 +24,8 @@ func CrearLista() *ListaEnlazada {
 }
 
 func (inser *ListaEnlazada) InsertarNodo(n *Nodo) {
-	if inser.cabeza == nil {
-		inser.cabeza = n
+	if inser.Cabeza == nil {
+		inser.Cabeza = n
 		inser.cola = n
 	} else {
 		inser.cola.Sig = n
@@ -41,7 +41,7 @@ func (i *Nodo) To_string() string {
 //para imprimir
 func (i *ListaEnlazada) To_string() string {
 	var resultante string
-	aux := i.cabeza
+	aux := i.Cabeza
 	for aux != nil {
 		resultante += aux.To_string()
 		aux = aux.Sig
@@ -58,7 +58,7 @@ func (i *ListaEnlazada) Imprimir() {
 func (i *ListaEnlazada) PasarNodo(BuscarNombre string) *Nodo {
 	fmt.Println("entro: ")
 	fmt.Print(BuscarNombre)
-	aux := i.cabeza
+	aux := i.Cabeza
 	for aux != nil {
 		if aux.Nombre == BuscarNombre {
 			fmt.Print(aux.Nombre)
@@ -73,7 +73,7 @@ func (i *ListaEnlazada) PasarNodo(BuscarNombre string) *Nodo {
 
 func (i *ListaEnlazada) PasarNodoID() int {
 	var contador int = 0
-	aux := i.cabeza
+	aux := i.Cabeza
 	for aux != nil {
 		aux = aux.Sig
 		contador++
@@ -81,10 +81,14 @@ func (i *ListaEnlazada) PasarNodoID() int {
 	return contador
 }
 
+func (i *ListaEnlazada) Getcabeza() *Nodo {
+	return i.Cabeza
+}
+
 func (i *ListaEnlazada) RecorrerID(ultNombre string) *Nodo {
-	aux := i.cabeza
+	aux := i.Cabeza
 	if ultNombre == "" {
-		ultNombre = i.cabeza.Nombre
+		ultNombre = i.Cabeza.Nombre
 		return aux
 	}
 	for aux != nil {
@@ -100,9 +104,9 @@ func (i *ListaEnlazada) RecorrerID(ultNombre string) *Nodo {
 //Eliminar
 func (i *ListaEnlazada) Eliminartienda(nombrenodo string) *ListaEnlazada {
 	fmt.Println("Entro a eliminar tienda")
-	aux := i.cabeza
-	if nombrenodo == i.cabeza.Nombre {
-		i.cabeza = aux.Sig
+	aux := i.Cabeza
+	if nombrenodo == i.Cabeza.Nombre {
+		i.Cabeza = aux.Sig
 		aux.Sig.Ant = nil
 		fmt.Println("Se elimino en primer nodo")
 		return i

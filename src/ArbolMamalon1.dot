@@ -1,0 +1,9 @@
+digraph grafico{
+rankdir=UD
+node[shape=box]
+concentrate=true
+compound=true;
+nodo2017[label ="2017"];
+nodo1999[label ="1999"];
+nodo2017->nodo1999
+}
