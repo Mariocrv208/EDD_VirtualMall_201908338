@@ -1,6 +1,7 @@
 package Matriz
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -13,28 +14,29 @@ type MatrizDis struct {
 	cola         *ColaPedidos
 }
 
-type ListaEnlazadaMes struct {
-	Cabeza *NodoMes
-	cola   *NodoMes
+type NodoListaanio struct {
+	anioo      int
+	mesesisto      int
+	mess       *ListaEnlazadaMes
+	Siganio    *NodoListaanio
+	Antanio   *NodoListaanio
 }
 
-type NodoMes struct {
+type ListaEnlazadaanio struct {
+	CabezaAnio *NodoListaanio
+	colaAnio   *NodoListaanio
+}
+
+type NodoListaMes struct {
 	Mes    int
 	matriz *MatrizDis
-	Sig    *NodoMes
-	Ant    *NodoMes
+	Sigmes    *NodoListaMes
+	Antmes    *NodoListaMes
 }
 
-type ArbolAn struct {
-	raiz *NodoAnio
-}
-
-type NodoAnio struct {
-	anio      int
-	mes       *ListaEnlazadaMes
-	Factor    int
-	Izquierdo *NodoAnio
-	Derecho   *NodoAnio
+type ListaEnlazadaMes struct {
+	Cabezames *NodoListaMes
+	colames   *NodoListaMes
 }
 
 type NodoPedido struct {
@@ -50,175 +52,203 @@ type ColaPedidos struct {
 	Cabeza *NodoPedido
 }
 
-//ARBOLANIOS
-func NuevoArbolAnio() *ArbolAn {
-	return &ArbolAn{nil}
+//LISTAANIO
+func CrearListaAnio() *ListaEnlazadaanio {
+	return &ListaEnlazadaanio{nil, nil}
 }
 
-func NuevoNodoAnio(anio int, mes *ListaEnlazadaMes) *NodoAnio {
-	return &NodoAnio{anio, mes, 0, nil, nil}
-}
-
-func rotacioniziAnio(n *NodoAnio, n1 *NodoAnio) *NodoAnio {
-	n.Izquierdo = n1.Derecho
-	n1.Derecho = n
-	if n1.Factor == -1 {
-		n.Factor = 0
-		n1.Factor = 0
+func (inseranio *ListaEnlazadaanio) InsertarNodoAnio(nanio *NodoListaanio) {
+	var a *ListaEnlazadaMes
+	if inseranio.CabezaAnio == nil {
+		a = CrearListaMes()
+		nanio.mess = a
+		b := CrearNodoListaMes(nanio.mesesisto, nil)
+		nanio.mess.InsertarNodoMes(b)
+		inseranio.CabezaAnio = nanio
+		inseranio.colaAnio = nanio
+		return
 	} else {
-		n.Factor = -1
-		n1.Factor = 1
-	}
-	return n1
-}
-
-func rotaciondedeAnio(n *NodoAnio, n1 *NodoAnio) *NodoAnio {
-	n.Derecho = n1.Izquierdo
-	if n1.Factor == 1 {
-		n.Factor = 0
-		n1.Factor = 0
-	} else {
-		n.Factor = 1
-		n1.Factor = -1
-	}
-	return n1
-}
-
-func rotaciondeizAnio(n *NodoAnio, n1 *NodoAnio) *NodoAnio {
-	n2 := n1.Izquierdo
-	n.Derecho = n2.Izquierdo
-	n2.Izquierdo = n
-	n1.Izquierdo = n2.Derecho
-	n2.Derecho = n1
-	if n2.Factor == 1 {
-		n.Factor = -1
-	} else {
-		n.Factor = 0
-	}
-	if n2.Factor == -1 {
-		n1.Factor = 1
-	} else {
-		n1.Factor = 0
-	}
-	n2.Factor = 0
-	return n2
-}
-
-func rotacionizdeAnio(n *NodoAnio, n1 *NodoAnio) *NodoAnio {
-	n2 := n1.Derecho
-	n.Izquierdo = n2.Derecho
-	n2.Derecho = n
-	n1.Derecho = n2.Izquierdo
-	n2.Izquierdo = n1
-	if n2.Factor == 1 {
-		n1.Factor = -1
-	} else {
-		n1.Factor = 0
-	}
-	if n2.Factor == -1 {
-		n.Factor = 1
-	} else {
-		n.Factor = 0
-	}
-	n2.Factor = 0
-	return n2
-}
-
-func InsertarAnio(raiz *NodoAnio, anio int, mes *ListaEnlazadaMes, hc *bool) *NodoAnio {
-	var n1 *NodoAnio
-	if raiz == nil {
-		raiz = NuevoNodoAnio(anio, mes)
-		*hc = true
-	} else if anio < raiz.anio {
-		izq := InsertarAnio(raiz.Izquierdo, anio, mes, hc)
-		raiz.Izquierdo = izq
-		if *hc {
-			switch raiz.Factor {
-			case 1:
-				raiz.Factor = 0
-				*hc = false
-				break
-			case 0:
-				raiz.Factor = -1
-				break
-			case -1:
-				n1 = raiz.Izquierdo
-				if n1.Factor == -1 {
-					raiz = rotacioniziAnio(raiz, n1)
-				} else {
-					raiz = rotacionizdeAnio(raiz, n1)
-				}
-				*hc = false
+		auxanio := inseranio.CabezaAnio
+		if nanio.anioo < inseranio.CabezaAnio.anioo{
+			a = CrearListaMes()
+			nanio.mess = a
+			b := CrearNodoListaMes(nanio.mesesisto, nil)
+			nanio.mess.InsertarNodoMes(b)
+			nanio.Siganio = inseranio.CabezaAnio
+			inseranio.CabezaAnio.Antanio = nanio
+			inseranio.CabezaAnio = nanio
+			return
+		} 
+		for auxanio != nil {
+			if nanio.anioo == auxanio.anioo{
+				b := CrearNodoListaMes(nanio.mesesisto, nil)
+				auxanio.mess.InsertarNodoMes(b)
+				return
 			}
+			if nanio.anioo < auxanio.anioo{
+				a = CrearListaMes()
+				nanio.mess = a
+				b := CrearNodoListaMes(nanio.mesesisto, nil)
+				nanio.mess.InsertarNodoMes(b)
+				nanio.Antanio = auxanio.Antanio
+				nanio.Siganio = auxanio
+				auxanio.Antanio = nanio
+				auxanio.Antanio.Siganio = nanio
+				return
+			}
+			auxanio = auxanio.Siganio
 		}
-	} else if anio > raiz.anio {
-		der := InsertarAnio(raiz.Derecho, anio, mes, hc)
-		raiz.Derecho = der
-		if *hc {
-			switch raiz.Factor {
-			case 1:
-				n1 = raiz.Derecho
-				if n1.Factor == 1 {
-					raiz = rotaciondedeAnio(raiz, n1)
-				} else {
-					raiz = rotaciondeizAnio(raiz, n1)
-				}
-				*hc = false
-				break
-			case 0:
-				raiz.Factor = 1
-				break
-			case -1:
-				raiz.Factor = 0
-				*hc = false
-			}
+		if auxanio == nil{
+			a = CrearListaMes()
+			nanio.mess = a
+			b := CrearNodoListaMes(nanio.mesesisto, nil)
+			nanio.mess.InsertarNodoMes(b)
+			inseranio.colaAnio.Siganio = nanio
+			nanio.Antanio = inseranio.colaAnio
+			inseranio.colaAnio = nanio
+			return
 		}
 	}
-	return raiz
 }
 
-func (this *ArbolAn) InsertarArbolAnio(anio int, mes *ListaEnlazadaMes) {
-	b := false
-	a := &b
-	this.raiz = InsertarAnio(this.raiz, anio, mes, a)
+func CrearNodoListaAnio(resanio int, resmes int) *NodoListaanio {
+	return &NodoListaanio{resanio, resmes, nil , nil, nil}
 }
 
-func imprimirnodosAnio(raiz *NodoAnio) string {
-	var linea string = ""
-	if raiz.Izquierdo == nil && raiz.Derecho == nil {
-		linea = "nodo" + strconv.Itoa(raiz.anio) + "[label =\"" + strconv.Itoa(raiz.anio) + "\"];\n"
-	} else {
-		linea = "nodo" + strconv.Itoa(raiz.anio) + "[label =\"" + strconv.Itoa(raiz.anio) + "\"];\n"
-	}
-	if raiz.Izquierdo != nil {
-		linea = linea + imprimirnodosAnio(raiz.Izquierdo) + "nodo" + strconv.Itoa(raiz.anio) + "->nodo" + strconv.Itoa(raiz.Izquierdo.anio) + "\n"
-	}
-	if raiz.Derecho != nil {
-		linea = linea + imprimirnodosAnio(raiz.Derecho) + "nodo" + strconv.Itoa(raiz.anio) + "->nodo" + strconv.Itoa(raiz.Derecho.anio) + "\n"
-	}
-	return linea
-}
-
-var contprod int = 1
-
-func GraficarAnio(raiz *ArbolAn) {
-	archivo, _ := os.Create("ArbolMamalon" + strconv.Itoa(contprod) + ".dot")
+func GraficarListaAnio(lisanio *ListaEnlazadaanio){
+	auxgraficar := lisanio.CabezaAnio
+	var contlisanio int = 0
+	archivo, _ := os.Create("ListaAnio" + strconv.Itoa(contlisanio) + ".dot")
 	_, _ = archivo.WriteString("digraph grafico{" + "\n")
-	_, _ = archivo.WriteString("rankdir=UD" + "\n")
+	_, _ = archivo.WriteString("rankdir=LR" + "\n")
 	_, _ = archivo.WriteString("node[shape=box]" + "\n")
 	_, _ = archivo.WriteString("concentrate=true" + "\n")
 	_, _ = archivo.WriteString("compound=true;" + "\n")
-	_, _ = archivo.WriteString(imprimirnodosAnio(raiz.raiz))
+	var conta int = 0
+	for auxgraficar != nil{
+		GraficarListaMes(auxgraficar.mess)
+		fmt.Println(auxgraficar.anioo)
+		_, _ = archivo.WriteString("nodo" + strconv.Itoa(auxgraficar.anioo) + "[label =\"" + strconv.Itoa(auxgraficar.anioo) + "\"];\n")
+		if conta != 0 {
+			_, _ = archivo.WriteString("nodo" + strconv.Itoa(auxgraficar.Antanio.anioo) + "->nodo" + strconv.Itoa(auxgraficar.anioo) + "\n")
+		}
+		auxgraficar = auxgraficar.Siganio
+		conta++
+	}
 	_, _ = archivo.WriteString("}" + "\n")
 	archivo.Close()
 	path, _ := exec.LookPath("dot")
-	cmd, _ := exec.Command(path, "-Tpdf", "./ArbolMamalon"+strconv.Itoa(contprod)+".dot").Output()
+	cmd, _ := exec.Command(path, "-Tpdf", "./ListaAnio"+strconv.Itoa(contlisanio)+".dot").Output()
 	mode := 0777
-	_ = ioutil.WriteFile("ArbolMamalon"+strconv.Itoa(contprod)+".pdf", cmd, os.FileMode(mode))
-	contprod++
+	_ = ioutil.WriteFile("ListaAnio"+strconv.Itoa(contlisanio)+".pdf", cmd, os.FileMode(mode))
+	contlisanio++
 }
 
 //LISTAMESES
+
+func CrearListaMes() *ListaEnlazadaMes {
+	return &ListaEnlazadaMes{nil, nil}
+}
+
+func (inser *ListaEnlazadaMes) InsertarNodoMes(n *NodoListaMes) {
+	if inser.Cabezames == nil {
+		fmt.Println("primero")
+		fmt.Println(n.Mes)
+		inser.Cabezames = n
+		inser.colames = n
+	} else {
+		aux := inser.Cabezames
+		if n.Mes < inser.Cabezames.Mes{
+			n.Sigmes = inser.Cabezames
+			inser.Cabezames.Antmes = n
+			inser.Cabezames = n
+			return
+		}
+		for aux != nil {
+			if n.Mes == aux.Mes{
+
+				return
+			}
+			if n.Mes < aux.Mes{
+				n.Antmes = aux.Antmes
+				n.Sigmes = aux
+				aux.Antmes = n
+				aux.Antmes.Sigmes = n
+				return
+			}
+			aux = aux.Sigmes
+		}
+		if aux == nil{
+			n.Antmes = inser.colames
+			inser.colames.Sigmes = n
+			inser.colames = n
+		}
+	}
+}
+
+func CrearNodoListaMes(mes int, matriz *MatrizDis) *NodoListaMes {
+	return &NodoListaMes{mes, matriz , nil, nil}
+}
+
+var contlismes int = 0
+
+func GraficarListaMes(lisanio *ListaEnlazadaMes){
+	auxgraficar := lisanio.Cabezames
+	archivo, _ := os.Create("ListaMes" + strconv.Itoa(contlismes) + ".dot")
+	_, _ = archivo.WriteString("digraph grafico{" + "\n")
+	_, _ = archivo.WriteString("rankdir=LR" + "\n")
+	_, _ = archivo.WriteString("node[shape=box]" + "\n")
+	_, _ = archivo.WriteString("concentrate=true" + "\n")
+	_, _ = archivo.WriteString("compound=true;" + "\n")
+	var conta int = 0
+	for auxgraficar != nil{
+		fmt.Println(auxgraficar.Mes)
+		_, _ = archivo.WriteString("nodo" + strconv.Itoa(auxgraficar.Mes) + "[label =\"" + getMes(auxgraficar.Mes) + "\"];\n")
+		if conta != 0 {
+			_, _ = archivo.WriteString("nodo" + strconv.Itoa(auxgraficar.Antmes.Mes) + "->nodo" + strconv.Itoa(auxgraficar.Mes) + "\n")
+		}
+		auxgraficar = auxgraficar.Sigmes
+		conta++
+	}
+	_, _ = archivo.WriteString("}" + "\n")
+	archivo.Close()
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpdf", "./ListaMes"+strconv.Itoa(contlismes)+".dot").Output()
+	mode := 0777
+	_ = ioutil.WriteFile("ListaMes"+strconv.Itoa(contlismes)+".pdf", cmd, os.FileMode(mode))
+	contlismes++
+}
+
+func getMes(dato int) string{
+	switch dato {
+	case 1:
+		return "Enero"
+	case 2:
+		return "Febrero"
+	case 3:
+		return "Marzo"
+	case 4:
+		return "Abril"
+	case 5:
+		return "Mayo"
+	case 6:
+		return "Junio"
+	case 7:
+		return "Julio"
+	case 8:
+		return "Agosto"
+	case 9:
+		return "Septiembre"
+	case 10:
+		return "Octubre"
+	case 11:
+		return "Noviembre"
+	case 12:
+		return "Diciembre"
+	}
+	return ""
+}
+
 
 //MATRIZMES
 

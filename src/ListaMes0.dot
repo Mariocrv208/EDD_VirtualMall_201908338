@@ -1,0 +1,11 @@
+digraph grafico{
+rankdir=LR
+node[shape=box]
+concentrate=true
+compound=true;
+nodo5[label ="Mayo"];
+nodo7[label ="Julio"];
+nodo5->nodo7
+nodo11[label ="Noviembre"];
+nodo7->nodo11
+}

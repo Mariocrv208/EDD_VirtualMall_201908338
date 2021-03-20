@@ -101,7 +101,6 @@ type Tiendas struct {
 	Contacto     string `json:Contacto`
 	Calificacion int    `json:Calificacion`
 	Logo         string `json:Logo`
-	productors   *ArbolAVL.ArbolProductos
 }
 
 //funciones
@@ -120,7 +119,7 @@ func agregarpedi(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &Mandarpedidos)
 	json.NewEncoder(w).Encode(Mandarpedidos)
-	imprimirAnio()
+	imprimirListaAnio()
 }
 
 //AgregarProductos
@@ -558,7 +557,7 @@ func Linealizando() {
 			segundo = (primero * len(mandar.Datos)) + j
 			for k := 0; k < len(mandar.Datos[j].Departamentos[i].Tiendas); k++ {
 				//Crear Nodo
-				nodomandar := Listas.Nodo{mandar.Datos[j].Departamentos[i].Tiendas[k].Nombre, mandar.Datos[j].Departamentos[i].Tiendas[k].Descripcion, mandar.Datos[j].Departamentos[i].Tiendas[k].Contacto, mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion, nil, nil}
+				nodomandar := Listas.Nodo{mandar.Datos[j].Departamentos[i].Tiendas[k].Nombre, mandar.Datos[j].Departamentos[i].Tiendas[k].Descripcion, mandar.Datos[j].Departamentos[i].Tiendas[k].Contacto, mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion, mandar.Datos[j].Departamentos[i].Tiendas[k].Logo, nil, nil}
 				if mandar.Datos[j].Departamentos[i].Tiendas[k].Calificacion == 1 {
 					tercero = segundo*5 + 0
 					veclin[tercero].InsertarNodo(&nodomandar)
@@ -592,32 +591,19 @@ func imprimirProductos() {
 }
 
 //FuncionCrearArbolAnio
-func imprimirAnio() {
-	a := Matriz.NuevoArbolAnio()
-	var auxAnio []string
+func imprimirListaAnio() {
+	c:= Matriz.CrearListaAnio()
 	for i := 0; i < len(Mandarpedidos.Pedidos); i++ {
 		var aniopaso []string
 		var paso int
+		var paso2 int
 		aniopaso = strings.Split(Mandarpedidos.Pedidos[i].Fecha, "-")
 		paso, _ = strconv.Atoi(aniopaso[2])
-		if len(auxAnio) == 0 {
-			a.InsertarArbolAnio(paso, nil)
-			auxAnio = append(auxAnio, strconv.Itoa(paso))
-		} else {
-			var permisopaso bool
-			for l := 0; l < len(auxAnio); l++ {
-				if auxAnio[l] == strconv.Itoa(paso) {
-					permisopaso = true
-					break
-				}
-			}
-			if permisopaso == false {
-				a.InsertarArbolAnio(paso, nil)
-				auxAnio = append(auxAnio, strconv.Itoa(paso))
-			}
-		}
+		paso2, _ = strconv.Atoi(aniopaso[1])
+		nodanio := Matriz.CrearNodoListaAnio(paso, paso2)
+		c.InsertarNodoAnio(nodanio)
 	}
-	Matriz.GraficarAnio(a)
+	Matriz.GraficarListaAnio(c)
 }
 
 //main

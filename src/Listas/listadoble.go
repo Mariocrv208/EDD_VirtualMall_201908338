@@ -10,6 +10,7 @@ type Nodo struct {
 	Descripcion  string
 	Contacto     string
 	Calificacion int
+	Logo         string
 	Sig          *Nodo
 	Ant          *Nodo
 }
