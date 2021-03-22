@@ -1,0 +1,13 @@
+digraph grafico{
+node[shape=box]
+concentrate=true
+compound=true;
+nodo00 [label ="5"];
+nodo00->nodo10
+nodo10[label ="Seguridad y vigilancia",color=blue,style=filled];
+nodo119[shape=polygon,color=red,style=filled ];
+nodo10->nodo119
+nodo00->nodo019
+nodo019[label ="19",color=blue,style=filled];
+nodo119->nodo019
+}

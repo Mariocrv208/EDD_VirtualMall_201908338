@@ -597,10 +597,12 @@ func imprimirListaAnio() {
 		var aniopaso []string
 		var paso int
 		var paso2 int
+		var paso3 int
 		aniopaso = strings.Split(Mandarpedidos.Pedidos[i].Fecha, "-")
 		paso, _ = strconv.Atoi(aniopaso[2])
 		paso2, _ = strconv.Atoi(aniopaso[1])
-		nodanio := Matriz.CrearNodoListaAnio(paso, paso2)
+		paso3, _ = strconv.Atoi(aniopaso[0])
+		nodanio := Matriz.CrearNodoListaAnio(paso, paso2, paso3, Mandarpedidos.Pedidos[i].Departamento)
 		c.InsertarNodoAnio(nodanio)
 	}
 	Matriz.GraficarListaAnio(c)
