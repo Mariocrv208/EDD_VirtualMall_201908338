@@ -1,0 +1,18 @@
+graph grafico{
+node[shape=box]
+concentrate=true
+compound=true;
+nodo00 [label ="Agosto"];
+nodo00--nodo10
+nodo10[label ="Television y video",color=blue,style=filled];
+nodo131[label ="uwu",shape=polygon,color=red,style=filled ];
+rank=same {nodo10--nodo131}
+rank=same {nodo00--nodo031}
+nodo031[label ="31",color=blue,style=filled];
+nodo131--nodo031
+nodo113[label ="uwu",shape=polygon,color=red,style=filled ];
+rank=same {nodo131--nodo113}
+rank=same {nodo031--nodo013}
+nodo013[label ="13",color=blue,style=filled];
+nodo113--nodo013
+}

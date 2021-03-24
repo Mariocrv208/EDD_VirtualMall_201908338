@@ -1,22 +1,20 @@
-package main
+	package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"os"
-	"os/exec"
-	"strconv"
-	"strings"
+	import (
+		"encoding/json"
+		"fmt"
+		"io/ioutil"
+		"log"
+		"net/http"
+		"strconv"
+		"strings"
 
-	"./ArbolAVL"
-	"./Listas"
-	"./Matriz"
+		"./ArbolAVL"
+		"./Listas"
+		"./Matriz"
 
-	"github.com/gorilla/mux"
-)
+		"github.com/gorilla/mux"
+	)
 
 //variables
 var mandar Raiz
@@ -272,115 +270,11 @@ func BuscarTienda(w http.ResponseWriter, r *http.Request) {
 
 //Reportes
 func Grafico() string {
-	//Encabezados Graf
-	archivo, _ := os.Create("graficoLinealizado.dot")
-	_, _ = archivo.WriteString("digraph grafico{" + "\n")
-	_, _ = archivo.WriteString("compound=true;" + "\n")
-	var califindice = 1
-	//Nodos base
-	for i := 0; i < len(veclin); i++ {
-		if i == 0 {
-			_, _ = archivo.WriteString("subgraph cluster0{" + "\n")
-			_, _ = archivo.WriteString("edge[minlen=0.1, dir=fordware]" + "\n")
-		}
-		if califindice == 6 {
-			califindice = 1
-		}
-		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + "[shape=record,label=\"...|...|{ " + strconv.Itoa(califindice) + " | pos:" + strconv.Itoa(i) + "}\"];" + "\n")
-		califindice++
-		if i != 0 {
-			_, _ = archivo.WriteString("struct" + strconv.Itoa(i-1) + " -> struct" + strconv.Itoa(i) + ";" + "\n")
-		}
-		if i+1 == len(veclin) {
-			_, _ = archivo.WriteString("}" + "\n")
-		}
+	for len(veclin) > Listas.Pasomayor {
+		Listas.GraficarVeclin(veclin)
+		Grafico()
 	}
-	//Nodos Tiendas
-	/*for i := 0; i < len(veclin); i++ {
-		if veclin[i] != nil {
-			_, _ = archivo.WriteString("subgraph cluster" + strconv.Itoa(i+1) + "{" + "\n")
-			_, _ = archivo.WriteString("edge[dir=both]" + "\n")
-			aux := veclin[i].Cabeza
-			var contad int = 0
-			for aux != nil {
-				_, _ = archivo.WriteString("nodo" + strconv.Itoa(i) + " [shape=record,label=\"{ " + aux.Nombre + " | " + aux.Contacto + "}\"];" + "\n")
-				contad++
-				if contad != 0 {
-					_, _ = archivo.WriteString("nodo" + strconv.Itoa(i-1) + " -> nodo" + strconv.Itoa(i) + ";" + "\n")
-				}
-				aux = aux.Sig
-			}
-			_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> nodo" + strconv.Itoa(i) + " [lhead=cluster" + strconv.Itoa(i) + "];" + "\n")
-		}
-		_, _ = archivo.WriteString("}" + "\n")
-
-	}*/
-
-	var cont int = 0
-	var mult int = 0
-	var multmulti2 []int
-	var multimult []int
-	for i := 0; i < len(veclin); i++ {
-		_, _ = archivo.WriteString("subgraph cluster" + strconv.Itoa(i+1) + "{" + "\n")
-		_, _ = archivo.WriteString("edge[dir=both]" + "\n")
-		var recibirlong int
-		if veclin[i] != nil {
-			aux := veclin[i].Cabeza
-			for aux != nil {
-				_, _ = archivo.WriteString("nodo" + strconv.Itoa(i) + " [shape=record,label=\"{ " + aux.Nombre + " | " + aux.Contacto + "}\"];" + "\n")
-				if i != 0 {
-					_, _ = archivo.WriteString("nodo" + strconv.Itoa(i-1) + " -> nodo" + strconv.Itoa(i) + ";" + "\n")
-
-				}
-
-				aux = aux.Sig
-			}
-		}
-		_, _ = archivo.WriteString("}" + "\n")
-		_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> nodo" + strconv.Itoa(i) + " [lhead=cluster" + strconv.Itoa(i+1) + "];" + "\n")
-
-		if veclin[i] != nil {
-			recibirlong = veclin[i].PasarNodoID()
-		}
-		var pas int
-		if recibirlong != 0 {
-			mult = i
-			var buscanombre string = ""
-			pas = cont
-			multimult = append(multimult, mult)
-			multmulti2 = append(multmulti2, pas)
-			var permiso int = 1
-			for j := 0; j < recibirlong; j++ {
-				var nodorecibir *Listas.Nodo = veclin[i].RecorrerID(buscanombre)
-				buscanombre = nodorecibir.Nombre
-				var nom string = nodorecibir.Nombre
-				var con string = nodorecibir.Contacto
-				_, _ = archivo.WriteString("nodo" + strconv.Itoa(cont) + " [shape=record,label=\"{ " + nom + " | " + con + "}\"];" + "\n")
-				if permiso == 2 {
-					_, _ = archivo.WriteString("nodo" + strconv.Itoa(cont-1) + " -> nodo" + strconv.Itoa(cont) + ";" + "\n")
-					permiso = 0
-				}
-				permiso++
-				cont++
-				pas++
-			}
-		}
-		_, _ = archivo.WriteString("}" + "\n")
-	}
-	for i := 0; i < len(veclin); i++ {
-		for j := 0; j < len(multimult); j++ {
-			if multimult[j] == i {
-				_, _ = archivo.WriteString("struct" + strconv.Itoa(i) + " -> nodo" + strconv.Itoa(multmulti2[j]) + " [lhead=cluster" + strconv.Itoa(i+1) + "];" + "\n")
-			}
-		}
-	}
-	_, _ = archivo.WriteString("}" + "\n")
-	archivo.Close()
-	path, _ := exec.LookPath("dot")
-	cmd, _ := exec.Command(path, "-Tsvg", "./graficoLinealizado.dot").Output()
-	mode := 0777
-	_ = ioutil.WriteFile("grafica.svg", cmd, os.FileMode(mode))
-	return "Grafico listo"
+		return "Grafico listo"
 }
 
 //Exportar
@@ -598,11 +492,15 @@ func imprimirListaAnio() {
 		var paso int
 		var paso2 int
 		var paso3 int
+		var mandarcodigos []int
 		aniopaso = strings.Split(Mandarpedidos.Pedidos[i].Fecha, "-")
 		paso, _ = strconv.Atoi(aniopaso[2])
 		paso2, _ = strconv.Atoi(aniopaso[1])
 		paso3, _ = strconv.Atoi(aniopaso[0])
-		nodanio := Matriz.CrearNodoListaAnio(paso, paso2, paso3, Mandarpedidos.Pedidos[i].Departamento)
+		for j := 0; j < len(Mandarpedidos.Pedidos[i].Codigos); j++ {
+			mandarcodigos = append(mandarcodigos, Mandarpedidos.Pedidos[i].Codigos[j].Codigo)
+		}
+		nodanio := Matriz.CrearNodoListaAnio(paso, paso2, paso3, Mandarpedidos.Pedidos[i].Departamento, Mandarpedidos.Pedidos[i].Tienda,Mandarpedidos.Pedidos[i].Calificacion, mandarcodigos)
 		c.InsertarNodoAnio(nodanio)
 	}
 	Matriz.GraficarListaAnio(c)

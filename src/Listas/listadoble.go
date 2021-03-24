@@ -2,6 +2,9 @@ package Listas
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
 	"strconv"
 )
 
@@ -129,4 +132,65 @@ func (i *ListaEnlazada) Eliminartienda(nombrenodo string) *ListaEnlazada {
 	}
 	fmt.Println("No encontro nodo")
 	return i
+}
+
+var contagralin int = 0
+var pasonodo int = 0
+var Pasomayor int = 0
+var contar int = 0
+
+func GraficarVeclin(veclin []*ListaEnlazada){
+	var pasogralin int = 1
+	archivo, _ := os.Create("graficoLinealizado" + strconv.Itoa(contagralin) + ".dot")
+	_, _ = archivo.WriteString("graph grafico{" + "\n")
+	_, _ = archivo.WriteString("node[shape=box]" + "\n")
+	_, _ = archivo.WriteString("concentrate=true" + "\n")
+	_, _ = archivo.WriteString("compound=true;" + "\n")
+	for pasogralin != 6{
+		_, _ = archivo.WriteString("nodo" + strconv.Itoa(Pasomayor) + "A[label =\"" + strconv.Itoa(pasogralin) + "\"];\n")
+		if contagralin == 0{
+			auxgraficar := veclin[(pasogralin-1)].Cabeza
+			var enlaces int = 0
+			for auxgraficar != nil {
+				_, _ = archivo.WriteString("nodo" + strconv.Itoa(pasonodo) + "B[label =\"" + auxgraficar.Nombre + "\"];\n")
+				if enlaces != 0{
+					_, _ = archivo.WriteString("rank=same {nodo" + strconv.Itoa(pasonodo-1) + "B--nodo" + strconv.Itoa(pasonodo) + "B}\n")
+				}
+				pasonodo++
+				enlaces++
+				auxgraficar = auxgraficar.Sig
+				if auxgraficar == nil {
+					_, _ = archivo.WriteString("rank=same {nodo" + strconv.Itoa(pasonodo-1) + "B--nodo" + strconv.Itoa(Pasomayor) + "A}\n")
+				}
+			}
+
+		}else{
+			auxgraficar := veclin[((pasogralin+4)*(contagralin-1))].Cabeza
+			var enlaces int = 0
+			for auxgraficar != nil {
+				_, _ = archivo.WriteString("nodo" + strconv.Itoa(pasonodo) + "B[label =\"" + auxgraficar.Nombre + "\"];\n")
+				if enlaces != 0{
+					_, _ = archivo.WriteString("rank=same {nodo" + strconv.Itoa(pasonodo-1) + "B--nodo" + strconv.Itoa(pasonodo) + "B}\n")
+				}
+				pasonodo++
+				enlaces++
+				auxgraficar = auxgraficar.Sig
+				if auxgraficar == nil {
+					_, _ = archivo.WriteString("rank=same {nodo" + strconv.Itoa(pasonodo-1) + "B--nodo" + strconv.Itoa(Pasomayor) + "A}\n")
+				}
+			}
+		}
+		if pasogralin !=1{
+			_, _ = archivo.WriteString("nodo" + strconv.Itoa(Pasomayor-1) + "A--nodo" + strconv.Itoa(Pasomayor) + "A\n")
+		}
+		Pasomayor++
+		pasogralin++
+	}
+	_, _ = archivo.WriteString("}" + "\n")
+	archivo.Close()
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpdf", "./graficoLinealizado"+ strconv.Itoa(contagralin)+".dot").Output()
+	mode := 0777
+	_ = ioutil.WriteFile("graficoLinealizado"+ strconv.Itoa(contagralin)+".pdf", cmd, os.FileMode(mode))
+	contagralin++
 }

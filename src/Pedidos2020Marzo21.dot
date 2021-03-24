@@ -1,0 +1,11 @@
+digraph grafico{
+rankdir=LR
+node[shape=box]
+concentrate=true
+compound=true;
+nodo62[label ="62"];
+nodo62->nodo55
+nodo55[label ="55"];
+nodo55->nodo59
+nodo59[label ="59"];
+}

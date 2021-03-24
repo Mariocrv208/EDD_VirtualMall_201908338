@@ -20,6 +20,7 @@ type NCHorizontal struct{
 }
 
 type MatrizDis struct {
+	anio 	int
 	mes 	int
 	CabH 	*NCHorizontal
 	CabV 	*NCVertical
@@ -30,6 +31,9 @@ type NodoMatrizDis struct{
 	Departamento string
 	fil			 int
 	dia          int
+	tienda 		 string
+	calificacion int
+	productos	[]int
 	cola         *ColaPedidos
 }
 
@@ -39,6 +43,9 @@ type NodoListaanio struct {
 	mesesisto   int
 	dia 		int
 	departamento string
+	tienda 		 string
+	calificacion int
+	productos	[]int
 	mess        *ListaEnlazadaMes
 	Siganio     *NodoListaanio
 	Antanio     *NodoListaanio
@@ -51,9 +58,13 @@ type ListaEnlazadaanio struct {
 
 //Lista mes
 type NodoListaMes struct {
+	anio 		int
 	Mes    		int
 	Dia 		int
 	departamento string
+	tienda 		 string
+	calificacion int
+	productos	[]int
 	matriz 		*MatrizDis
 	Sigmes    	*NodoListaMes
 	Antmes    	*NodoListaMes
@@ -66,16 +77,20 @@ type ListaEnlazadaMes struct {
 
 //Cola
 type NodoPedido struct {
-	Fecha        string
+	anio 		 int
+	mes 		 int
+	dia 		 int
 	Tienda       string
 	Departamento string
 	califiacion  int
-	productors   []int
+	productos    int
 	sig          *NodoPedido
 }
 
 type ColaPedidos struct {
-	Cabeza *NodoPedido
+	productos 	[]int
+	Cabeza 		*NodoPedido
+	colames   	*NodoPedido
 }
 
 //LISTAANIO
@@ -88,7 +103,7 @@ func (inseranio *ListaEnlazadaanio) InsertarNodoAnio(nanio *NodoListaanio) {
 	if inseranio.CabezaAnio == nil {
 		a = CrearListaMes()
 		nanio.mess = a
-		b := CrearNodoListaMes(nanio.mesesisto, nanio.dia, nanio.departamento, nil)
+		b := CrearNodoListaMes(nanio.anioo,nanio.mesesisto, nanio.dia, nanio.departamento,nanio.tienda,nanio.calificacion,nanio.productos, nil)
 		nanio.mess.InsertarNodoMes(b)
 		inseranio.CabezaAnio = nanio
 		inseranio.colaAnio = nanio
@@ -98,7 +113,7 @@ func (inseranio *ListaEnlazadaanio) InsertarNodoAnio(nanio *NodoListaanio) {
 		if nanio.anioo < inseranio.CabezaAnio.anioo{
 			a = CrearListaMes()
 			nanio.mess = a
-			b := CrearNodoListaMes(nanio.mesesisto, nanio.dia, nanio.departamento, nil)
+			b := CrearNodoListaMes(nanio.anioo,nanio.mesesisto, nanio.dia, nanio.departamento,nanio.tienda,nanio.calificacion,nanio.productos, nil)
 			nanio.mess.InsertarNodoMes(b)
 			nanio.Siganio = inseranio.CabezaAnio
 			inseranio.CabezaAnio.Antanio = nanio
@@ -107,14 +122,14 @@ func (inseranio *ListaEnlazadaanio) InsertarNodoAnio(nanio *NodoListaanio) {
 		} 
 		for auxanio != nil {
 			if nanio.anioo == auxanio.anioo{
-				b := CrearNodoListaMes(nanio.mesesisto, nanio.dia, nanio.departamento, nil)
+				b := CrearNodoListaMes(nanio.anioo,nanio.mesesisto, nanio.dia, nanio.departamento,nanio.tienda,nanio.calificacion,nanio.productos, nil)
 				auxanio.mess.InsertarNodoMes(b)
 				return
 			}
 			if nanio.anioo < auxanio.anioo{
 				a = CrearListaMes()
 				nanio.mess = a
-				b := CrearNodoListaMes(nanio.mesesisto, nanio.dia, nanio.departamento, nil)
+				b := CrearNodoListaMes(nanio.anioo,nanio.mesesisto, nanio.dia, nanio.departamento,nanio.tienda,nanio.calificacion,nanio.productos, nil)
 				nanio.mess.InsertarNodoMes(b)
 				nanio.Antanio = auxanio.Antanio
 				nanio.Siganio = auxanio
@@ -127,7 +142,7 @@ func (inseranio *ListaEnlazadaanio) InsertarNodoAnio(nanio *NodoListaanio) {
 		if auxanio == nil{
 			a = CrearListaMes()
 			nanio.mess = a
-			b := CrearNodoListaMes(nanio.mesesisto, nanio.dia, nanio.departamento, nil)
+			b := CrearNodoListaMes(nanio.anioo,nanio.mesesisto, nanio.dia, nanio.departamento,nanio.tienda,nanio.calificacion,nanio.productos, nil)
 			nanio.mess.InsertarNodoMes(b)
 			inseranio.colaAnio.Siganio = nanio
 			nanio.Antanio = inseranio.colaAnio
@@ -137,8 +152,8 @@ func (inseranio *ListaEnlazadaanio) InsertarNodoAnio(nanio *NodoListaanio) {
 	}
 }
 
-func CrearNodoListaAnio(resanio int, resmes int, resdia int, depa string) *NodoListaanio {
-	return &NodoListaanio{resanio, resmes, resdia, depa , nil, nil, nil}
+func CrearNodoListaAnio(resanio int, resmes int, resdia int, depa string, tienda string, calificacion int, producto []int) *NodoListaanio {
+	return &NodoListaanio{resanio, resmes, resdia, depa, tienda, calificacion, producto , nil, nil, nil}
 }
 
 func GraficarListaAnio(lisanio *ListaEnlazadaanio){
@@ -177,8 +192,8 @@ func CrearListaMes() *ListaEnlazadaMes {
 
 func (inser *ListaEnlazadaMes) InsertarNodoMes(n *NodoListaMes) {
 	if inser.Cabezames == nil {
-		a := &MatrizDis{n.Mes, nil, nil}
-		b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia, cola:nil }
+		a := &MatrizDis{n.anio,n.Mes, nil, nil}
+		b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia,tienda: n.tienda,calificacion: n.calificacion,productos: n.productos,cola:nil }
 		a.insertar(b)
 		n.matriz = a
 		inser.Cabezames = n
@@ -186,8 +201,8 @@ func (inser *ListaEnlazadaMes) InsertarNodoMes(n *NodoListaMes) {
 	} else {
 		aux := inser.Cabezames
 		if n.Mes < inser.Cabezames.Mes{
-			a := &MatrizDis{n.Mes, nil, nil}
-			b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia, cola:nil }
+			a := &MatrizDis{n.anio,n.Mes, nil, nil}
+			b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia,tienda: n.tienda,calificacion: n.calificacion,productos: n.productos,cola:nil }
 			a.insertar(b)
 			n.matriz = a
 			n.Sigmes = inser.Cabezames
@@ -197,15 +212,13 @@ func (inser *ListaEnlazadaMes) InsertarNodoMes(n *NodoListaMes) {
 		}
 		for aux != nil {
 			if n.Mes == aux.Mes{
-				a := &MatrizDis{n.Mes, nil, nil}
-				b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia, cola:nil }
-				a.insertar(b)
-				n.matriz = a
+				b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia,tienda: n.tienda,calificacion: n.calificacion,productos: n.productos,cola:nil }
+				aux.matriz.insertar(b)
 				return
 			}
 			if n.Mes < aux.Mes{
-				a := &MatrizDis{n.Mes, nil, nil}
-				b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia, cola:nil }
+				a := &MatrizDis{n.anio,n.Mes, nil, nil}
+				b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia,tienda: n.tienda,calificacion: n.calificacion,productos: n.productos,cola:nil }
 				a.insertar(b)
 				n.matriz = a
 				n.Antmes = aux.Antmes
@@ -217,8 +230,8 @@ func (inser *ListaEnlazadaMes) InsertarNodoMes(n *NodoListaMes) {
 			aux = aux.Sigmes
 		}
 		if aux == nil{
-			a := &MatrizDis{n.Mes, nil, nil}
-			b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia, cola:nil }
+			a := &MatrizDis{n.anio,n.Mes, nil, nil}
+			b := &NodoMatrizDis{ESTE:nil ,OESTE:nil ,SUR:nil, NORTE:nil, Departamento: n.departamento,fil: 0, dia:n.Dia,tienda: n.tienda,calificacion: n.calificacion,productos: n.productos,cola:nil }
 			a.insertar(b)
 			n.matriz = a
 			n.Antmes = inser.colames
@@ -228,15 +241,15 @@ func (inser *ListaEnlazadaMes) InsertarNodoMes(n *NodoListaMes) {
 	}
 }
 
-func CrearNodoListaMes(mes int, dia int, depa string,  matriz *MatrizDis) *NodoListaMes {
-	return &NodoListaMes{mes, dia, depa, matriz , nil, nil}
+func CrearNodoListaMes(anio int,mes int, dia int, depa string,tienda string, calificacion int, productos []int,  matriz *MatrizDis) *NodoListaMes {
+	return &NodoListaMes{anio,mes, dia, depa, tienda, calificacion, productos, matriz , nil, nil}
 }
 
-var contlismes int = 0
+
 
 func GraficarListaMes(lisanio *ListaEnlazadaMes){
 	auxgraficar := lisanio.Cabezames
-	archivo, _ := os.Create("ListaMes" + strconv.Itoa(contlismes) + ".dot")
+	archivo, _ := os.Create("ListaMes" + strconv.Itoa(lisanio.Cabezames.anio) + ".dot")
 	_, _ = archivo.WriteString("digraph grafico{" + "\n")
 	_, _ = archivo.WriteString("rankdir=LR" + "\n")
 	_, _ = archivo.WriteString("node[shape=box]" + "\n")
@@ -255,10 +268,9 @@ func GraficarListaMes(lisanio *ListaEnlazadaMes){
 	_, _ = archivo.WriteString("}" + "\n")
 	archivo.Close()
 	path, _ := exec.LookPath("dot")
-	cmd, _ := exec.Command(path, "-Tpdf", "./ListaMes"+strconv.Itoa(contlismes)+".dot").Output()
+	cmd, _ := exec.Command(path, "-Tpdf", "./ListaMes"+strconv.Itoa(lisanio.Cabezames.anio)+".dot").Output()
 	mode := 0777
-	_ = ioutil.WriteFile("ListaMes"+strconv.Itoa(contlismes)+".pdf", cmd, os.FileMode(mode))
-	contlismes++
+	_ = ioutil.WriteFile("ListaMes"+strconv.Itoa(lisanio.Cabezames.anio)+".pdf", cmd, os.FileMode(mode))
 }
 
 func getMes(dato int) string{
@@ -481,9 +493,16 @@ func (this *MatrizDis) insertar(np *NodoMatrizDis){
 	if horiz==nil{
 		horiz=this.crearNodoHorizontal(np.dia)
 	}
+	a := &ColaPedidos{np.productos, nil, nil}
+	for j := 0; j < len(np.productos); j++ {
+		var mandarcodigo int = np.productos[j]
+		b := &NodoPedido{this.anio, this.mes, np.dia,np.tienda,np.Departamento,np.calificacion,mandarcodigo,nil }
+		a.InsertarNodoCola(b)
+	}
+	np.cola = a
 	izquierda := this.ultimoH(vert.(*NCVertical), np.Departamento)
 	superior := this.ultimoV(horiz.(*NCHorizontal),np.dia)
-	if reflect.TypeOf(izquierda).String()=="*Matriz.superior"{
+	if reflect.TypeOf(izquierda).String()=="*Matriz.NodoMatrizDis"{
 		if izquierda.(*NodoMatrizDis).ESTE==nil{
 			izquierda.(*NodoMatrizDis).ESTE=np
 			np.OESTE=izquierda
@@ -532,55 +551,54 @@ func (this *MatrizDis) insertar(np *NodoMatrizDis){
 	}
 }
 
-var contmat int = 0
-
 func GraficarMatriz(matriz *MatrizDis){
 	var auxgraficarV interface{} = matriz.CabV
 	var fila int = 0
 	var col int = 0
-	archivo, _ := os.Create("Matriz" + strconv.Itoa(contmat) + ".dot")
-	_, _ = archivo.WriteString("digraph grafico{" + "\n")
-	_, _ = archivo.WriteString("rankdir=LR" + "\n")
+	archivo, _ := os.Create("Matriz"+ getMes(matriz.mes) + strconv.Itoa(matriz.anio) + ".dot")
+	_, _ = archivo.WriteString("graph grafico{" + "\n")
 	_, _ = archivo.WriteString("node[shape=box]" + "\n")
 	_, _ = archivo.WriteString("concentrate=true" + "\n")
 	_, _ = archivo.WriteString("compound=true;" + "\n")
-	_, _ = archivo.WriteString("nodo00 [label =\"" + strconv.Itoa(matriz.mes)  + "\"];\n")
+	_, _ = archivo.WriteString("nodo00 [label =\"" + getMes(matriz.mes)  + "\"];\n")
 	for auxgraficarV != nil{
-		if fila != 0{
-			_, _ = archivo.WriteString("nodo" + strconv.Itoa(fila-1) + "0->nodo" + strconv.Itoa(fila) + "0\n")
-		}
-		if fila == 0 {
-			_, _ = archivo.WriteString("nodo00->nodo10\n")
-		}
+		_, _ = archivo.WriteString("nodo" + strconv.Itoa(fila) + "0--nodo" + strconv.Itoa(fila+1) + "0\n")
 		fila++
 		_, _ = archivo.WriteString("nodo"+strconv.Itoa(fila)+ "0[label =\"" + auxgraficarV.(*NCVertical).Departamento  + "\",color=blue,style=filled];\n")
 		tmp1:=auxgraficarV.(*NCVertical).ESTE
+		var PEder bool = false
 		for tmp1!=nil{
-			var PEder bool = false
-			_, _ = archivo.WriteString("nodo"+strconv.Itoa(fila) + strconv.Itoa(tmp1.(*NodoMatrizDis).dia)+"[shape=polygon,color=red,style=filled ];\n")
+			GraficarCola(tmp1.(*NodoMatrizDis).cola)
+			_, _ = archivo.WriteString("nodo"+strconv.Itoa(fila) + strconv.Itoa(tmp1.(*NodoMatrizDis).dia)+"[label =\"uwu\",shape=polygon,color=red,style=filled ];\n")
 			tmp1.(*NodoMatrizDis).fil = fila
 			if PEder == true{
 				tmp3 := tmp1.(*NodoMatrizDis).OESTE
-				_, _ = archivo.WriteString("nodo"+strconv.Itoa(fila)+strconv.Itoa(tmp3.(*NodoMatrizDis).dia)+"->nodo"+strconv.Itoa(fila)+ strconv.Itoa(tmp1.(*NodoMatrizDis).dia) + "\n")
+				_, _ = archivo.WriteString("rank=same {nodo"+strconv.Itoa(fila)+strconv.Itoa(tmp3.(*NodoMatrizDis).dia)+"--nodo"+strconv.Itoa(fila)+ strconv.Itoa(tmp1.(*NodoMatrizDis).dia) + "}\n")
 			}
 			if PEder == false{
-				_, _ = archivo.WriteString("nodo"+strconv.Itoa(fila)+"0->nodo"+strconv.Itoa(fila)+ strconv.Itoa(tmp1.(*NodoMatrizDis).dia) + "\n")
+				_, _ = archivo.WriteString("rank=same {nodo"+strconv.Itoa(fila)+"0--nodo"+strconv.Itoa(fila)+ strconv.Itoa(tmp1.(*NodoMatrizDis).dia) + "}\n")
 				PEder = true
 			}
 			tmp2:=tmp1.(*NodoMatrizDis).NORTE
 			for reflect.TypeOf(tmp2).String()!="*Matriz.NCHorizontal"{
 				tmp4 := tmp2.(NodoMatrizDis).SUR
-				_, _ = archivo.WriteString("nodo"+strconv.Itoa(tmp4.(*NodoMatrizDis).fil)+strconv.Itoa(tmp4.(*NodoMatrizDis).dia)+"->nodo"+ strconv.Itoa(tmp2.(*NodoMatrizDis).fil) + strconv.Itoa(tmp2.(*NodoMatrizDis).dia) + "\n")
+				_, _ = archivo.WriteString("nodo"+strconv.Itoa(tmp4.(*NodoMatrizDis).fil)+strconv.Itoa(tmp4.(*NodoMatrizDis).dia)+"--nodo"+ strconv.Itoa(tmp2.(*NodoMatrizDis).fil) + strconv.Itoa(tmp2.(*NodoMatrizDis).dia) + "\n")
 				tmp2 = tmp2.(*NodoMatrizDis).NORTE
 			}
 			if reflect.TypeOf(tmp2).String()=="*Matriz.NCHorizontal"{
 				tmp5 := tmp2.(*NCHorizontal).SUR
+				tmp6:= tmp2.(*NCHorizontal).OESTE
 				if col == 0{
-					_, _ = archivo.WriteString("nodo00->nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia)+"\n")
+					_, _ = archivo.WriteString("rank=same {nodo00--nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia)+"}\n")
+				}else if col != 0 && tmp6 != nil{
+					_, _ = archivo.WriteString("rank=same {nodo0"+ strconv.Itoa(tmp6.(*NCHorizontal).dia)+"--nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia)+"}\n")
+				}else if tmp6 == nil && col!= 0{
+					tmp6:= tmp2.(*NCHorizontal).ESTE
+					_, _ = archivo.WriteString("rank=same {nodo0"+ strconv.Itoa(tmp6.(*NCHorizontal).dia)+"--nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia)+"}\n")
 				}
 				col++
 				_, _ = archivo.WriteString("nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia)+"[label =\"" + strconv.Itoa(tmp2.(*NCHorizontal).dia)  + "\",color=blue,style=filled];\n")
-				_, _ = archivo.WriteString("nodo"+ strconv.Itoa(tmp5.(*NodoMatrizDis).fil) + strconv.Itoa(tmp5.(*NodoMatrizDis).dia) + "->nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia) + "\n")
+				_, _ = archivo.WriteString("nodo"+ strconv.Itoa(tmp5.(*NodoMatrizDis).fil) + strconv.Itoa(tmp5.(*NodoMatrizDis).dia) + "--nodo0"+ strconv.Itoa(tmp2.(*NCHorizontal).dia) + "\n")
 			}
 			tmp1 = tmp1.(*NodoMatrizDis).ESTE
 		}
@@ -589,11 +607,55 @@ func GraficarMatriz(matriz *MatrizDis){
 	_, _ = archivo.WriteString("}" + "\n")
 	archivo.Close()
 	path, _ := exec.LookPath("dot")
-	cmd, _ := exec.Command(path, "-Tpdf", "./Matriz"+strconv.Itoa(contmat)+".dot").Output()
+	cmd, _ := exec.Command(path, "-Tpdf", "./Matriz"+ getMes(matriz.mes)+strconv.Itoa(matriz.anio)+".dot").Output()
 	mode := 0777
-	_ = ioutil.WriteFile("Matriz"+strconv.Itoa(contmat)+".pdf", cmd, os.FileMode(mode))
-	contmat++
+	_ = ioutil.WriteFile("Matriz"+ getMes(matriz.mes)+strconv.Itoa(matriz.anio)+".pdf", cmd, os.FileMode(mode))
 }
 
 //NODOPEDIDOS
 
+	func CrearCola(productos []int) *ColaPedidos {
+		return &ColaPedidos{productos, nil, nil}
+	}
+
+	func (inser *ColaPedidos) InsertarNodoCola(n *NodoPedido) {
+	if inser.Cabeza == nil {
+		inser.Cabeza = n
+		inser.colames = n
+	} else {
+		inser.colames.sig = n
+		inser.colames = n
+	}
+}
+
+func CrearNodoCola(anio int,mes int, dia int,tienda string, depa string, calificacion int, productos int) *NodoPedido {
+	return &NodoPedido{anio,mes, dia, tienda, depa, calificacion, productos, nil}
+}
+
+
+
+func GraficarCola(lisanio *ColaPedidos){
+	auxgraficar := lisanio.Cabeza
+	archivo, _ := os.Create("Pedidos" + strconv.Itoa(lisanio.Cabeza.anio)+getMes(lisanio.Cabeza.mes)+ strconv.Itoa(lisanio.Cabeza.dia) + ".dot")
+	_, _ = archivo.WriteString("digraph grafico{" + "\n")
+	_, _ = archivo.WriteString("rankdir=LR" + "\n")
+	_, _ = archivo.WriteString("node[shape=box]" + "\n")
+	_, _ = archivo.WriteString("concentrate=true" + "\n")
+	_, _ = archivo.WriteString("compound=true;" + "\n")
+	var conta int = len(lisanio.productos)
+	var cont int = 1
+	for auxgraficar != nil{
+		_, _ = archivo.WriteString("nodo" + strconv.Itoa(auxgraficar.productos) + "[label =\"" + strconv.Itoa(auxgraficar.productos) + "\"];\n")
+		if conta != cont  {
+			_, _ = archivo.WriteString("nodo" + strconv.Itoa(auxgraficar.productos) + "->nodo" + strconv.Itoa(auxgraficar.sig.productos) + "\n")
+		}
+		auxgraficar = auxgraficar.sig
+		cont++
+	}
+	_, _ = archivo.WriteString("}" + "\n")
+	archivo.Close()
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpdf", "./Pedidos"+ strconv.Itoa(lisanio.Cabeza.anio)+getMes(lisanio.Cabeza.mes)+ strconv.Itoa(lisanio.Cabeza.dia)+".dot").Output()
+	mode := 0777
+	_ = ioutil.WriteFile("Pedidos"+ strconv.Itoa(lisanio.Cabeza.anio)+getMes(lisanio.Cabeza.mes)+ strconv.Itoa(lisanio.Cabeza.dia)+".pdf", cmd, os.FileMode(mode))
+}

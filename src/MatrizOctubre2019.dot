@@ -1,0 +1,13 @@
+graph grafico{
+node[shape=box]
+concentrate=true
+compound=true;
+nodo00 [label ="Octubre"];
+nodo00--nodo10
+nodo10[label ="Seguridad y vigilancia",color=blue,style=filled];
+nodo116[label ="uwu",shape=polygon,color=red,style=filled ];
+rank=same {nodo10--nodo116}
+rank=same {nodo00--nodo016}
+nodo016[label ="16",color=blue,style=filled];
+nodo116--nodo016
+}
