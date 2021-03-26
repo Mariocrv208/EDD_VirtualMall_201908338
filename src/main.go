@@ -51,7 +51,7 @@ type RaizProd struct {
 type Invetarios struct {
 	Tienda       string      `json:"Tienda"`
 	Departamento string      `json:"Departamento"`
-	Calificacion []int       `json:"Calificacion"`
+	Calificacion int       `json:"Calificacion"`
 	Productos    []Productos `json:"Productos"`
 }
 

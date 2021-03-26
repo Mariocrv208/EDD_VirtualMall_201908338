@@ -1,0 +1,13 @@
+.archivos {
+    background: blueviolet;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, blueviolet, blueviolet);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, blueviolet, blueviolet);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+}
+

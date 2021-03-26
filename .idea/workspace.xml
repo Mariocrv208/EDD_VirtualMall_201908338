@@ -3,30 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="81d72604-8556-404f-abf6-3aa7caa4abdb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes0.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes0.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes1.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Listas/listadoble.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listas/listadoble.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz/matriz.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/Matriz/matriz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz0.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz0.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz1.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz2.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz3.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz3.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz4.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz5.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz5.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz6.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz6.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz7.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz7.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ArbolAVL/arbolProductos.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/ArbolAVL/arbolProductos.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
