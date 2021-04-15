@@ -134,7 +134,7 @@ func (i *ListaEnlazada) Eliminartienda(nombrenodo string) *ListaEnlazada {
 	return i
 }
 
-var contagralin int = 0
+var contagralin int = 1
 var pasonodo int = 0
 var Pasomayor int = 0
 var contar int = 0
@@ -148,7 +148,7 @@ func GraficarVeclin(veclin []*ListaEnlazada){
 	_, _ = archivo.WriteString("compound=true;" + "\n")
 	for pasogralin != 6{
 		_, _ = archivo.WriteString("nodo" + strconv.Itoa(Pasomayor) + "A[label =\"" + strconv.Itoa(pasogralin) + "\"];\n")
-		if contagralin == 0{
+		if contagralin == 1{
 			auxgraficar := veclin[(pasogralin-1)].Cabeza
 			var enlaces int = 0
 			for auxgraficar != nil {
@@ -165,7 +165,7 @@ func GraficarVeclin(veclin []*ListaEnlazada){
 			}
 
 		}else{
-			auxgraficar := veclin[((pasogralin+4)*(contagralin-1))].Cabeza
+			auxgraficar := veclin[((pasogralin)*(contagralin-1))].Cabeza
 			var enlaces int = 0
 			for auxgraficar != nil {
 				_, _ = archivo.WriteString("nodo" + strconv.Itoa(pasonodo) + "B[label =\"" + auxgraficar.Nombre + "\"];\n")

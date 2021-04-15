@@ -1,9 +1,0 @@
-digraph grafico{
-rankdir=LR
-node[shape=box]
-concentrate=true
-compound=true;
-nodo3[label ="Marzo"];
-nodo8[label ="Agosto"];
-nodo7->nodo8
-}

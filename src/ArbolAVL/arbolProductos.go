@@ -11,8 +11,6 @@ type ArbolProductos struct {
 	raiz *NodoProduc
 }
 
-
-
 type NodoProduc struct {
 	Nombre      string
 	Codigo      int
@@ -20,6 +18,7 @@ type NodoProduc struct {
 	Precio      float32
 	cantidad    int
 	imagen      string
+	Almacenamiento string
 	Factor      int
 	Izquierdo   *NodoProduc
 	Derecho     *NodoProduc
@@ -29,8 +28,8 @@ func NuevoArbol() *ArbolProductos {
 	return &ArbolProductos{nil}
 }
 
-func NuevoNodo(nombre string, codigo int, descripcion string, precio float32, cantidad int, imagen string) *NodoProduc {
-	return &NodoProduc{nombre, codigo, descripcion, precio, cantidad, imagen, 0, nil, nil}
+func NuevoNodo(nombre string, codigo int, descripcion string, precio float32, cantidad int, imagen string, almacenamiento string) *NodoProduc {
+	return &NodoProduc{nombre, codigo, descripcion, precio, cantidad, imagen,almacenamiento, 0, nil, nil}
 }
 
 func rotacionizi(n *NodoProduc, n1 *NodoProduc) *NodoProduc {
@@ -48,6 +47,7 @@ func rotacionizi(n *NodoProduc, n1 *NodoProduc) *NodoProduc {
 
 func rotaciondede(n *NodoProduc, n1 *NodoProduc) *NodoProduc {
 	n.Derecho = n1.Izquierdo
+	n1.Izquierdo = n
 	if n1.Factor == 1 {
 		n.Factor = 0
 		n1.Factor = 0
@@ -98,13 +98,13 @@ func rotacionizde(n *NodoProduc, n1 *NodoProduc) *NodoProduc {
 	return n2
 }
 
-func InsertarProd(raiz *NodoProduc, nombre string, codigo int, descripcion string, precio float32, cantidad int, imagen string, hc *bool) *NodoProduc {
+func InsertarProd(raiz *NodoProduc, nombre string, codigo int, descripcion string, precio float32, cantidad int, imagen string,almacenamiento string, hc *bool) *NodoProduc {
 	var n1 *NodoProduc
 	if raiz == nil {
-		raiz = NuevoNodo(nombre, codigo, descripcion, precio, cantidad, imagen)
+		raiz = NuevoNodo(nombre, codigo, descripcion, precio, cantidad, imagen,almacenamiento)
 		*hc = true
 	} else if codigo < raiz.Codigo {
-		izq := InsertarProd(raiz.Izquierdo, nombre, codigo, descripcion, precio, cantidad, imagen, hc)
+		izq := InsertarProd(raiz.Izquierdo, nombre, codigo, descripcion, precio, cantidad, imagen, almacenamiento, hc)
 		raiz.Izquierdo = izq
 		if *hc {
 			switch raiz.Factor {
@@ -126,7 +126,7 @@ func InsertarProd(raiz *NodoProduc, nombre string, codigo int, descripcion strin
 			}
 		}
 	} else if codigo > raiz.Codigo {
-		der := InsertarProd(raiz.Derecho, nombre, codigo, descripcion, precio, cantidad, imagen, hc)
+		der := InsertarProd(raiz.Derecho, nombre, codigo, descripcion, precio, cantidad, imagen,almacenamiento, hc)
 		raiz.Derecho = der
 		if *hc {
 			switch raiz.Factor {
@@ -151,10 +151,10 @@ func InsertarProd(raiz *NodoProduc, nombre string, codigo int, descripcion strin
 	return raiz
 }
 
-func (this *ArbolProductos) InsertarArbol(nombre string, codigo int, descripcion string, precio float32, cantidad int, imagen string) {
+func (this *ArbolProductos) InsertarArbol(nombre string, codigo int, descripcion string, precio float32, cantidad int, imagen string,almacenamiento string) {
 	b := false
 	a := &b
-	this.raiz = InsertarProd(this.raiz, nombre, codigo, descripcion, precio, cantidad, imagen, a)
+	this.raiz = InsertarProd(this.raiz, nombre, codigo, descripcion, precio, cantidad, imagen, almacenamiento, a)
 }
 
 func imprimirnodos(raiz *NodoProduc) string {

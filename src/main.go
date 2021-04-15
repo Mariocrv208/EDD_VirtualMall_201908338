@@ -20,11 +20,44 @@
 var mandar Raiz
 var Mandarprod RaizProd
 var Mandarpedidos RaizPedido
+var MandUsuarios RaizUsuarios
+var ManGrafo RaizGrafo
 var resultadoBusca Tiendas
 var eliminando mandarEliminar
 var resultadoID Departamentos
 var longit int
 var buscar mandarBuscar
+
+//Struct Grafo
+type RaizGrafo struct{
+	Nodos 					[]Nodos `json:"Nodos"`
+	PosicionInicialRobot 	string `json:"PosicionInicialRobot"`
+	Entrega 				string `json:"Entrega"`
+}
+
+type Nodos struct{
+	Nombregrafo		string	 `json:"Nombre"`
+	Enlaces			[]Enlaces	 `json:"Enlaces"`
+}
+
+type Enlaces struct{
+	NombreEnlace	string	 `json:"Nombre"`
+	Distancia		int	 `json:"Distancia"`
+}
+
+//Struct Usuarios
+type RaizUsuarios struct{
+	Usuarios []Usuarios `json:"Usuarios"`
+}
+
+type Usuarios struct{
+	Dpi			int		 `json:"Dpi"`
+	Nombre		string	 `json:"Nombre"`
+	Correo		string	 `json:"Correo"`
+	Password	string	 `json:"Password"`
+	Cuenta		string	 `json:"Cuenta"`
+}
+
 
 //Struct Pedidos
 type RaizPedido struct {
@@ -36,6 +69,7 @@ type Pedidos struct {
 	Tienda       string    `json:"Tienda"`
 	Departamento string    `json:"Departamento"`
 	Calificacion int       `json:"Calificacion"`
+	Cliente int       `json:"Cliente"`
 	Codigos      []Codigos `json:"Productos"`
 }
 
@@ -45,7 +79,7 @@ type Codigos struct {
 
 //Struct Productos
 type RaizProd struct {
-	Invetarios []Invetarios `json:"Invetarios"`
+	Invetarios []Invetarios `json:"Inventarios"`
 }
 
 type Invetarios struct {
@@ -62,6 +96,7 @@ type Productos struct {
 	PrecioProd      float32 `json:"Precio"`
 	CantidadProd    int     `json:"Cantidad"`
 	ImagenProd      string  `json:"Imagen"`
+	AlmacenamientoProd      string  `json:"Almacenamiento"`
 }
 
 //Struct Buscar
@@ -105,6 +140,31 @@ type Tiendas struct {
 //Server
 func inicial(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Si jala we uwu")
+}
+
+//AgregarGrafos
+func agregarGrafo(w http.ResponseWriter, r *http.Request) {
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(w, "No inserto we :c")
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.Unmarshal(reqBody, &ManGrafo)
+	json.NewEncoder(w).Encode(ManGrafo)
+}
+
+//AgregarUsuarios
+func agregarusu(w http.ResponseWriter, r *http.Request) {
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(w, "No inserto we :c")
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.Unmarshal(reqBody, &MandUsuarios)
+	json.NewEncoder(w).Encode(MandUsuarios)
+
 }
 
 //AgregarPedidos
@@ -478,7 +538,7 @@ func imprimirProductos() {
 	for j := 0; j < len(Mandarprod.Invetarios); j++ {
 		a := ArbolAVL.NuevoArbol()
 		for i := 0; i < len(Mandarprod.Invetarios[j].Productos); i++ {
-			a.InsertarArbol(Mandarprod.Invetarios[j].Productos[i].NombreProd, Mandarprod.Invetarios[j].Productos[i].CodigoProd, Mandarprod.Invetarios[j].Productos[i].DescripcionProd, Mandarprod.Invetarios[j].Productos[i].PrecioProd, Mandarprod.Invetarios[j].Productos[i].CantidadProd, Mandarprod.Invetarios[j].Productos[i].ImagenProd)
+			a.InsertarArbol(Mandarprod.Invetarios[j].Productos[i].NombreProd, Mandarprod.Invetarios[j].Productos[i].CodigoProd, Mandarprod.Invetarios[j].Productos[i].DescripcionProd, Mandarprod.Invetarios[j].Productos[i].PrecioProd, Mandarprod.Invetarios[j].Productos[i].CantidadProd, Mandarprod.Invetarios[j].Productos[i].ImagenProd, Mandarprod.Invetarios[j].Productos[i].AlmacenamientoProd)
 		}
 		ArbolAVL.Graficar(a)
 	}
@@ -511,6 +571,8 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", inicial).Methods("GET")
 	router.HandleFunc("/cargarproductos", agregarprod).Methods("POST")
+	router.HandleFunc("/cargarusuario", agregarusu).Methods("POST")
+	router.HandleFunc("/cargargrafo", agregarGrafo).Methods("POST")
 	router.HandleFunc("/cargarpedido", agregarpedi).Methods("POST")
 	router.HandleFunc("/cargartienda", agregar).Methods("POST")
 	router.HandleFunc("/TiendaEspecifica", BuscarTienda).Methods("POST")

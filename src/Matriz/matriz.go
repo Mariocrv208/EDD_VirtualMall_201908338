@@ -345,7 +345,7 @@ func (this *MatrizDis) crearNodoVertical(departamento string) *NCVertical{
 		return nueva
 	}
 	var aux interface{}=this.CabV
-	if departamento[0]<= aux.(*NCVertical).Departamento[0]{
+	if departamento[0]< aux.(*NCVertical).Departamento[0]{
 		nueva :=&NCVertical{
 			ESTE:nil,
 			OESTE:nil,
@@ -415,7 +415,7 @@ func (this *MatrizDis) crearNodoHorizontal(dia int) *NCHorizontal{
 		return nueva
 	}
 	for aux.(*NCHorizontal).ESTE!=nil{
-		if dia>aux.(*NCHorizontal).dia && dia<aux.(*NCHorizontal).SUR.(*NCHorizontal).dia{
+		if dia>aux.(*NCHorizontal).dia && dia<=aux.(*NCHorizontal).ESTE.(*NCHorizontal).dia{
 			nueva := &NCHorizontal{
 				ESTE:nil,
 				OESTE:nil,
