@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom'
 import{Menu} from "semantic-ui-react"
 import '../css/Nav.css'
 
-
-const urls = ['Tiendas','Carrito','Reportes','Archivo']
-const colores = ['blue','red','green','teal']
-const opciones = ['Principal','Carrito','Reportes','Archivos']
-function NavBar() {
+const urls = ['Login','Registro']
+const colores = ['blue','red']
+const opciones = ['Login','Registro']
+function NavBar2() {
     const [activo, setactivo]= useState(colores[0])
     return (
         <Menu inverted className = "Nav">
@@ -24,4 +23,4 @@ function NavBar() {
     )
 }
 
-export default NavBar
+export default NavBar2

@@ -1,6 +1,8 @@
 	package main
 
 	import (
+		"crypto/sha256"
+		"encoding/hex"
 		"encoding/json"
 		"fmt"
 		"io/ioutil"
@@ -12,6 +14,8 @@
 		"./ArbolAVL"
 		"./Listas"
 		"./Matriz"
+		"./Grafo"
+		"./ArbolB"
 
 		"github.com/gorilla/mux"
 	)
@@ -152,6 +156,7 @@ func agregarGrafo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &ManGrafo)
 	json.NewEncoder(w).Encode(ManGrafo)
+	imprimirGrafo()
 }
 
 //AgregarUsuarios
@@ -164,7 +169,7 @@ func agregarusu(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.Unmarshal(reqBody, &MandUsuarios)
 	json.NewEncoder(w).Encode(MandUsuarios)
-
+	imprimirArbolB()
 }
 
 //AgregarPedidos
@@ -564,6 +569,41 @@ func imprimirListaAnio() {
 		c.InsertarNodoAnio(nodanio)
 	}
 	Matriz.GraficarListaAnio(c)
+}
+
+//FuncionImprimirGrafo
+func imprimirGrafo(){
+	a:=Grafo.NewListaAdyacencia()
+	var empieza string = ManGrafo.PosicionInicialRobot
+	var Entrega string = ManGrafo.Entrega
+	for i:=0;i<len(ManGrafo.Nodos);i++{
+		if ManGrafo.Nodos[i].Nombregrafo == empieza{
+			a.Insertar(ManGrafo.Nodos[i].Nombregrafo, i, empieza, "")
+		}else if ManGrafo.Nodos[i].Nombregrafo == Entrega{
+			a.Insertar(ManGrafo.Nodos[i].Nombregrafo, i, "", Entrega)
+		}else {
+			a.Insertar(ManGrafo.Nodos[i].Nombregrafo, i, "", "")
+		}
+	}
+	for i:=0;i<len(ManGrafo.Nodos);i++{
+		for j:=0;j<len(ManGrafo.Nodos[i].Enlaces);j++{
+			a.Enlazar(ManGrafo.Nodos[i].Nombregrafo,ManGrafo.Nodos[i].Enlaces[j].NombreEnlace, ManGrafo.Nodos[i].Enlaces[j].Distancia)
+		}
+	}
+	a.GraficaGrafo()
+}
+
+//FuncionImprimirArbolB
+func imprimirArbolB(){
+	a:=ArbolB.NewArbol(5)
+	for i:=0;i<len(MandUsuarios.Usuarios);i++{
+		encriptar := []byte(MandUsuarios.Usuarios[i].Password)
+		hash := sha256.Sum256(encriptar)
+		a.Insertar(ArbolB.NewKey(MandUsuarios.Usuarios[i].Dpi, MandUsuarios.Usuarios[i].Nombre,MandUsuarios.Usuarios[i].Correo,hex.EncodeToString(hash[:]),MandUsuarios.Usuarios[i].Cuenta))
+	}
+	a.Graficar()
+	a.GraficarArbolCifrado()
+	a.GraficarArbolCifradoSencible()
 }
 
 //main

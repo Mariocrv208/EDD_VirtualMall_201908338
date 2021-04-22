@@ -1,0 +1,50 @@
+digraph grafico{
+layout=circo
+node[shape=circle]
+nodo0[label ="Andromeda" style ="filled" color ="red"];
+nodo6[label ="El cangrejo"];
+nodo2[label ="El ave del paraiso"];
+nodo1[label ="La maquina neumatica"];
+nodo5[label ="La jirafa"];
+nodo0->nodo5[label ="5"];
+nodo0->nodo1[label ="10"];
+nodo0->nodo2[label ="8"];
+nodo0->nodo6[label ="12"];
+nodo3[label ="Acuario"];
+nodo1->nodo0[label ="10"];
+nodo1->nodo5[label ="15"];
+nodo1->nodo3[label ="0"];
+nodo4[label ="El aguila"];
+nodo2->nodo0[label ="8"];
+nodo2->nodo4[label ="5"];
+nodo2->nodo6[label ="13"];
+nodo7[label ="El altar"];
+nodo3->nodo1[label ="0"];
+nodo3->nodo7[label ="7"];
+nodo8[label ="El carnero"];
+nodo4->nodo2[label ="5"];
+nodo4->nodo8[label ="9"];
+nodo4->nodo6[label ="15"];
+nodo9[label ="El cincel" style ="filled" color ="blue"];
+nodo5->nodo0[label ="5"];
+nodo5->nodo1[label ="15"];
+nodo5->nodo6[label ="6"];
+nodo5->nodo9[label ="13"];
+nodo5->nodo7[label ="14"];
+nodo6->nodo0[label ="12"];
+nodo6->nodo5[label ="6"];
+nodo6->nodo2[label ="13"];
+nodo6->nodo9[label ="10"];
+nodo6->nodo4[label ="15"];
+nodo6->nodo8[label ="3"];
+nodo7->nodo3[label ="7"];
+nodo7->nodo5[label ="14"];
+nodo7->nodo9[label ="5"];
+nodo8->nodo4[label ="9"];
+nodo8->nodo6[label ="3"];
+nodo8->nodo9[label ="2"];
+nodo9->nodo5[label ="13"];
+nodo9->nodo6[label ="10"];
+nodo9->nodo7[label ="5"];
+nodo9->nodo8[label ="2"];
+}

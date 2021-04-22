@@ -2,66 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81d72604-8556-404f-abf6-3aa7caa4abdb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ArbolB/arbol.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ArbolB/nodo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Grafo/grafo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/front-regexive/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/front-regexive/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/InputPedidos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/InputPedidos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/InputProductos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/InputProductos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/InputTiendas.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/InputTiendas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/NavBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/Tiendas.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/Tiendas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/archivos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front/front-regexive/src/Componentes/archivos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ArbolAVL/arbolProductos.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/ArbolAVL/arbolProductos.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaAnio0.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaAnio0.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2018.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2018.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2019.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2019.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2020.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListaMes2020.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Listas/listadoble.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listas/listadoble.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Matriz/matriz.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/Matriz/matriz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizAgosto2020.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizAgosto2020.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizEnero2019.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizEnero2019.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizJulio2018.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizJulio2018.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizMarzo2020.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizMarzo2020.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizMayo2018.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizMayo2018.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizMayo2019.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizMayo2019.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizNoviembre2018.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizNoviembre2018.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizOctubre2019.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizOctubre2019.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Julio21.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Julio21.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Mayo23.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Mayo23.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Noviembre13.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Noviembre13.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Noviembre30.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2018Noviembre30.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2019Enero5.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2019Enero5.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2019Mayo19.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2019Mayo19.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2019Octubre16.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2019Octubre16.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2020Agosto13.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2020Agosto13.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2020Agosto31.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2020Agosto31.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2020Marzo21.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pedidos2020Marzo21.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go_build_src_.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ArbolB/arbol.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/ArbolB/arbol.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ArbolB/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/ArbolB/key.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/src.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +40,9 @@
     <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1q6hWtQowP3LzEEt0pGz8NZTP76" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -146,19 +97,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/Matriz/matriz.go</url>
-          <line>528</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/Matriz/matriz.go</url>
-          <line>506</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/Matriz/matriz.go</url>
-          <line>487</line>
-          <option name="timeStamp" value="43" />
+          <url>file://$USER_HOME$/Downloads/arbol.go</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
